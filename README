@@ -1,4 +1,7 @@
 
-A etapa de conversão consiste no desenvolvimento de um fluxo completo de programação em assembly a partir de um código C. O Algoritmo convertido consiste na função numérica de Fatoração QL com deslocamentos implícitos.
+A etapa de conversão consiste no desenvolvimento de um fluxo completo de programação em assembly a partir de um código em linguagem C. 
 
 A etapa de otimização busca melhorar os resultados do código assembly gerado anteriormente.
+
+
+* O Algoritmo convertido consiste na função numérica de Fatoração QL com deslocamentos implícitos.
