@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>goto4.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #808080'><i>/* Subtituição dos vetores pelo numero de variaveis correspondentes. */
+
+</i></span><span style='color: #008000'>#include &lt;math.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>tqli</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> d[], </span><span style='color: #800000'>float</span><span style='color: #000000'> e[], </span><span style='color: #800000'>int</span><span style='color: #000000'> n, </span><span style='color: #800000'>float</span><span style='color: #000000'> **z)
+{
+	</span><span style='color: #800000'>float</span><span style='color: #000000'> tFloat0,tFloat1,tFloat2;
+	</span><span style='color: #800000'>int</span><span style='color: #000000'>   tInt; 
+	
+    </span><span style='color: #800000'>int</span><span style='color: #000000'> m,l,iter,i,k;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> s,r,p,g,f,dd,c,b;
+
+    </span><span style='color: #808080'><i>/*Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    </span><span style='color: #800000'>float</span><span style='color: #000000'> absa;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> absb;
+    </span><span style='color: #808080'><i>/*Fim: Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    
+    </span><span style='color: #808080'><i>/*FOR 1: for (i=2;i&lt;=n;i++) */
+</i></span><span style='color: #000000'>    i=</span><span style='color: #0000ff'>2</span><span style='color: #000000'>;
+    LABELstartOFfor1:
+    <b>if</b>(i&lt;=n){
+     tInt = i-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+     e[ tInt ]=e[i];   </span><span style='color: #808080'><i>// Convenient to renumber the elements of e.
+</i></span><span style='color: #000000'>     i=i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+     <b>goto</b> LABELstartOFfor1;
+    }
+    
+    e[n]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+    </span><span style='color: #808080'><i>/*FOR 2: for (l=1;l&lt;=n;l++)*/
+</i></span><span style='color: #000000'>    l=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    LABELstartOFfor2:
+    <b>if</b>(l&lt;=n){
+        iter=</span><span style='color: #0000ff'>0</span><span style='color: #000000'>;
+	LABELstartOFdowhile:
+        </span><span style='color: #808080'><i>/*do{*/
+</i></span><span style='color: #000000'>            </span><span style='color: #808080'><i>/*FOR 3:for (m=l;m&lt;=n-1;m++)*/
+</i></span><span style='color: #000000'>	    m=l;
+	    LABELstartOFfor3:
+	    tInt = n-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	    <b>if</b>(m&lt;=tInt){ </span><span style='color: #808080'><i>//Look for a single small subdiagonal element to split the matrix.
+</i></span><span style='color: #000000'>		   tFloat0 = d[m];
+		  tFloat1 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tFloat0);
+		   tInt = m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		   tFloat0 = d[ tInt ];
+		  tFloat2 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tFloat0);
+                dd = tFloat1 + tFloat2;
+		   tFloat0 = e[m];
+		   tFloat1 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tFloat0);
+		  tFloat0 = tFloat1 + dd;
+                <b>if</b> ( tFloat0 == dd ){ <b>goto</b> LABELendOFfor3; }
+		m = m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		<b>goto</b> LABELstartOFfor3;
+            } LABELendOFfor3:
+            <b>if</b> (m != l) {
+                <b>if</b> (iter == </span><span style='color: #0000ff'>30</span><span style='color: #000000'>){
+		 	</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Numerical Recipes run-time error...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"Too many iterations in tqli</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"...now exiting to system...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>exit</span><span style='color: #000000'>(</span><span style='color: #0000ff'>1</span><span style='color: #000000'>);
+		}
+				iter=iter+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		tInt = l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		tFloat0 = d[ tInt ] - d[l];
+		tFloat1 = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>*e[l];
+                g = (tFloat0)/(tFloat1);  </span><span style='color: #808080'><i>//Form shift.
+</i></span><span style='color: #000000'>		
+		</span><span style='color: #808080'><i>/*Substituicao do pythag
+		* r=pythag(g,1.0);
+		*/
+</i></span><span style='color: #000000'>		absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>);
+		<b>if</b> (absa &gt; absb){
+			tFloat0 = (absb/absa);
+			<b>if</b>(tFloat0 == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ){ tFloat1 = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ tFloat1 = tFloat0*tFloat0; }
+			tFloat1 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tFloat1;
+			tFloat0 = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>( tFloat1 );
+			r = absa * tFloat0;
+		}
+		<b>else</b>{ 
+			tFloat0 = (absa/absb);
+			<b>if</b>(tFloat0 == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ tFloat1 = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ tFloat1=tFloat0*tFloat0; }
+			tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>+tFloat1;
+			tFloat1 = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(tFloat0);
+			<b>if</b>(absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ r = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ r = absb*tFloat1;  }
+		}
+		</span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>                <b>if</b>( g &gt;= </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ){ tFloat0 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r); }
+		<b>else</b>{  tFloat0 = -</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r); }
+		tFloat0 = g + tFloat0;
+		tFloat1 = e[l]/tFloat0;
+		tFloat0 = tFloat1 - d[l];
+		g = d[m] + tFloat0;
+		c=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+		s=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+                p=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                </span><span style='color: #808080'><i>/*FOR 4:for (i=m-1;i&gt;=l;i--) */
+</i></span><span style='color: #000000'>		i=m-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		LABELstartOFfor4:
+		<b>if</b>(i&gt;=l){
+                    </span><span style='color: #808080'><i>/*A plane rotation as in the original QL, followed by Givens rotations to restore tridiagonal form. */
+</i></span><span style='color: #000000'>                    f=s*e[i];
+                    b=c*e[i];
+		
+		    </span><span style='color: #808080'><i>/*Substituicao do pythag
+		    * r=pythag(f,g);
+		    */
+</i></span><span style='color: #000000'>		    absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(f);
+		    absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		    <b>if</b> (absa &gt; absb) {
+		    	tFloat0 = (absb/absa);
+			<b>if</b>(tFloat0 == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ tFloat1=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ tFloat1 = tFloat0*tFloat0; }
+			tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tFloat1;
+			tFloat1 = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>( tFloat0 );
+		    	r = absa*tFloat1;
+		    }
+		    <b>else</b> {
+		    	tFloat0 = (absa/absb);
+			<b>if</b>(tFloat0 == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) tFloat1 = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+			<b>else</b> tFloat1 = tFloat0*tFloat0;
+			tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tFloat1;
+			tFloat1 = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(tFloat0);
+			<b>if</b>(absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) r = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+			<b>else</b> r = absb*tFloat1;
+		    }
+		    </span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>                    
+		    tInt = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    e[ tInt ] = r; </span><span style='color: #808080'><i>//(r=pythag(f,g));
+</i></span><span style='color: #000000'>                    <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) { </span><span style='color: #808080'><i>//Recover from underflow.
+// 		    	tInt = i+1;
+</i></span><span style='color: #000000'>                        d[ tInt ] = d[ tInt ] - p;
+                        e[m]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                        <b>goto</b> LABELendOFfor4;</span><span style='color: #808080'><i>/*break;*/
+</i></span><span style='color: #000000'>                    }
+                    s=f/r;
+                    c=g/r;
+</span><span style='color: #808080'><i>// 		    tInt = i+1;
+</i></span><span style='color: #000000'>                    g = d[ tInt ] - p;
+		    tFloat0 = d[i] - g;
+		    tFloat1 = tFloat0*s;
+		    tFloat0 = c*b;
+		    tFloat2 = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>*tFloat0; 
+                    r= tFloat1 + tFloat2;
+		    
+		    p=s*r;
+</span><span style='color: #808080'><i>// 		    tInt = i+1;
+</i></span><span style='color: #000000'>                    d[ tInt ] = g+p;
+		    tFloat0 = c*r;
+                    g = tFloat0 - b;
+                    </span><span style='color: #808080'><i>/* Next loop can be omitted if eigenvectors not wanted*/
+</i></span><span style='color: #000000'>                    </span><span style='color: #808080'><i>/*FOR 5: for (k=1;k&lt;=n;k++) */
+</i></span><span style='color: #000000'>		    k=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    LABELstartOFfor5:
+		    <b>if</b>(k&lt;=n){ </span><span style='color: #808080'><i>//Form eigenvectors.
+</i></span><span style='color: #000000'>		    	tInt = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+                        f = z[k][ tInt ];
+			tFloat0 = s*z[k][i];
+			tFloat1 = c*f;
+                        z[k][ tInt ] = tFloat0+tFloat1;
+                        tFloat0 = c*z[k][i];
+			tFloat1 = s*f;
+			z[k][i]= tFloat0 - tFloat1;
+			k=k+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+			<b>goto</b> LABELstartOFfor5;
+                    }
+		    i = i-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    <b>goto</b> LABELstartOFfor4;
+                } LABELendOFfor4:
+                <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>)
+		  <b>if</b>(i &gt;= l) <b>goto</b> LABELstartOFdowhile;</span><span style='color: #808080'><i>/*continue;*/
+</i></span><span style='color: #000000'>                d[l] = d[l] - p;
+                e[l]= g;
+                e[m]= </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+            }
+        </span><span style='color: #808080'><i>/*} while (m != l);*/
+</i></span><span style='color: #000000'>	<b>if</b>(m != l){
+	  <b>goto</b> LABELstartOFdowhile;
+	}
+	l = l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	<b>goto</b> LABELstartOFfor2;
+    }
+}
+
+
+</span></pre></body></html>

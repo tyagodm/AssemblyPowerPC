@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>sqrt.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #008000'>#ifndef SQRT_C_
+#define SQRT_C_
+
+</span><span style='color: #808080'><i>//ORIGINAL
+</i></span><span style='color: #800000'>float</span><span style='color: #000000'> </span><span style='color: #000080'>sqrt2</span><span style='color: #000000'>( </span><span style='color: #800000'>float</span><span style='color: #000000'> s ) 
+{
+      </span><span style='color: #800000'>float</span><span style='color: #000000'> n = </span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+      </span><span style='color: #800000'>int</span><span style='color: #000000'> i = </span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+      <b>while</b> ( i &lt; </span><span style='color: #0000ff'>50</span><span style='color: #000000'>){
+            n = </span><span style='color: #800080'>0.5</span><span style='color: #000000'> *( n + (s/n) );
+            i = i + </span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+      }      
+      <b>return</b> n;
+}
+
+</span><span style='color: #808080'><i>/*
+//assembly
+//SQRT( FR1 )
+//considerando FR7 com valor 1.0
+      "fmr FR3,FR7\n\t"
+      "li R1,1\n\t"
+      "labelStart:\n\t"
+      "cmpi 3,0,R1,50\n\t"
+      "bgea 3,labelEnd\n\t"
+            "fdivs FR4,FR1,FR3\n\t"
+	    "fadds FR4,FR3,FR4\n\t"
+	    "fadds FR2,FR7,FR7\n\t"
+            "fdivs FR3,FR4,FR2\n\t"
+            "addi R1,R1,1\n\t"
+	    "ba labelStart\n\t"
+      "labelEnd:\n\t"
+//O resultado está em FR3      
+//Fim
+*/
+
+</i></span><span style='color: #008000'>#endif
+
+</span></pre></body></html>

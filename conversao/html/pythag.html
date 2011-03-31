@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>pythag.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #008000'>#include &lt;math.h&gt;
+#define NRANSI
+#include "nrutil.h"
+
+</span><span style='color: #800000'>float</span><span style='color: #000000'> </span><span style='color: #000080'>pythag</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> a, </span><span style='color: #800000'>float</span><span style='color: #000000'> b)
+{
+	</span><span style='color: #800000'>float</span><span style='color: #000000'> absa,absb;
+	absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(a);
+	absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(b);
+	<b>if</b> (absa &gt; absb) <b>return</b> absa*</span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>+</span><span style='color: #000080'>SQR</span><span style='color: #000000'>(absb/absa));
+	<b>else</b> <b>return</b> (absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #800080'>0.0</span><span style='color: #000000'> : absb*</span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>+</span><span style='color: #000080'>SQR</span><span style='color: #000000'>(absa/absb)));
+}
+</span><span style='color: #008000'>#undef NRANSI
+
+</span></pre></body></html>

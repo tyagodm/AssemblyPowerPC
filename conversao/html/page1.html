@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>O c&oacute;digo passado</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><a href="../index.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: right;"><a
+ href="page2.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Segunda
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Desenvolvimento de um fluxo completo de
+programa&ccedil;&atilde;o em assembly a partir do c&oacute;digo
+especificado.<br>
+</small></small></big></big></big></span><span
+ style="font-weight: bold;"><br>
+[O
+c&oacute;digo passado]</span><br>
+<span style="font-family: monospace;"><big><big><big><small><small><br>
+</small></small></big></big></big>Me foi passado como trabalho
+implementar uma fun&ccedil;&atilde;o relacionada &agrave;
+c&aacute;lculo
+num&eacute;rico<br>
+e que tem como origem o
+endere&ccedil;o <a
+ href="http://www.library.cornell.edu/nr/bookcpdf/c11-3.pdf">http://www.library.cornell.edu/nr/bookcpdf/c11-3.pdf</a><br>
+<br>
+A fun&ccedil;&atilde;o &eacute; mostrada abaixo e em <a
+ href="original.html">original.html.</a><br>
+Al&eacute;m de usar func&otilde;es da biblioteca math.h, s&atilde;o
+usadas outras fun&ccedil;&otilde;es pr&oacute;prias,<br>
+que est&atilde;o descritas <a href="nrutil.h.html">nrutil.h.html</a>, <a
+ href="nrutil.c.html">nrutil.c</a></span><a href="nrutil.c.html"><span
+ style="font-family: monospace;">.html</span></a><span
+ style="font-family: monospace;"> e <a href="pythag.html">pythag</a></span><a
+ href="pythag.html"><span style="font-family: monospace;">.html</span></a><span
+ style="font-family: monospace;">.<br>
+<br>
+Comentado, junto &agrave; fun&ccedil;&atilde;o, est&aacute; uma
+descri&ccedil;&atilde;o das entradas e sa&iacute;das esperadas.<br>
+<br>
+<br>
+<br>
+</span>
+<pre><span style="color: rgb(0, 128, 0);">//====================[original.c]=============================</span>
+</pre>
+<span style="font-family: monospace;"></span>
+<pre><span style="color: rgb(0, 0, 0);"></span><span
+ style="color: rgb(0, 128, 0);">#include &lt;math.h&gt;<br>#include "nrutil.h"<br>#include "pythag.c"<br><br></span><span
+ style="color: rgb(128, 0, 0);">void</span><span
+ style="color: rgb(0, 0, 0);"> </span><span
+ style="color: rgb(0, 0, 128);">tqli</span><span
+ style="color: rgb(0, 0, 0);">(</span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> d[], </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> e[], </span><span
+ style="color: rgb(128, 0, 0);">int</span><span
+ style="color: rgb(0, 0, 0);"> n, </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> **z)<br></span><span
+ style="color: rgb(128, 128, 128);"><i>/* QL algorithm with implicit shifts, to determine the eigenvalues and eigenvectors of a real, symmetric, tridiagonal <br>matrix, or of a real, symmetric matrix previously reduced by tred2 &sect;11.2. On input, d[1..n] contains the diagonal <br>elements of the tridiagonal matrix. On output, it returns the eigenvalues. The vector e[1..n] inputs the subdiagonal <br>elements of the tridiagonal matrix, with e[1] arbitrary. On output e is destroyed. When finding only the eigenvalues, <br>several lines may be omitted, as noted in the comments. If the eigenvectors of a tridiagonal matrix are desired, the <br>matrix z[1..n][1..n] is input as the identity matrix. If the eigenvectors of a matrix that has been reduced by tred2 <br>are required, then z is input as the matrix output by tred2. In either case, the kth column of z returns the normalized <br>eigenvector corresponding to d[k].<br>*/<br></i></span><span
+ style="color: rgb(0, 0, 0);">{<br>    </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> </span><span
+ style="color: rgb(0, 0, 128);">pythag</span><span
+ style="color: rgb(0, 0, 0);">(</span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> a, </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> b);<br>    </span><span
+ style="color: rgb(128, 0, 0);">int</span><span
+ style="color: rgb(0, 0, 0);"> m,l,iter,i,k;<br>    </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> s,r,p,g,f,dd,c,b;<br><br>    <b>for</b> (i=</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">;i&lt;=n;i++) e[i-</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=e[i];   </span><span
+ style="color: rgb(128, 128, 128);"><i>// Convenient to renumber the elements of e.<br></i></span><span
+ style="color: rgb(0, 0, 0);">    e[n]=</span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);">;<br>    <b>for</b> (l=</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">;l&lt;=n;l++) {<br>        iter=</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">;<br>        <b>do</b> {<br>            <b>for</b> (m=l;m&lt;=n-</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">;m++){ </span><span
+ style="color: rgb(128, 128, 128);"><i>//Look for a single small subdiagonal element to split the matrix.<br></i></span><span
+ style="color: rgb(0, 0, 0);">                dd=</span><span
+ style="color: rgb(0, 0, 128);">fabs</span><span
+ style="color: rgb(0, 0, 0);">(d[m])+</span><span
+ style="color: rgb(0, 0, 128);">fabs</span><span
+ style="color: rgb(0, 0, 0);">(d[m+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]);<br>                <b>if</b> ((</span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);">)(</span><span
+ style="color: rgb(0, 0, 128);">fabs</span><span
+ style="color: rgb(0, 0, 0);">(e[m])+dd) == dd) <b>break</b>;<br>            }<br>            <b>if</b> (m != l) {<br>                <b>if</b> (iter++ == </span><span
+ style="color: rgb(0, 0, 255);">30</span><span
+ style="color: rgb(0, 0, 0);">) </span><span
+ style="color: rgb(0, 0, 128);">nrerror</span><span
+ style="color: rgb(0, 0, 0);">(</span><span
+ style="color: rgb(221, 0, 0);">"Too many iterations in tqli"</span><span
+ style="color: rgb(0, 0, 0);">);<br>                g=(d[l+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]-d[l])/(</span><span
+ style="color: rgb(128, 0, 128);">2.0</span><span
+ style="color: rgb(0, 0, 0);">*e[l]);  </span><span
+ style="color: rgb(128, 128, 128);"><i>//Form shift.<br></i></span><span
+ style="color: rgb(0, 0, 0);">                r=</span><span
+ style="color: rgb(0, 0, 128);">pythag</span><span
+ style="color: rgb(0, 0, 0);">(g,</span><span
+ style="color: rgb(128, 0, 128);">1.0</span><span
+ style="color: rgb(0, 0, 0);">);<br>                g=d[m]-d[l]+e[l]/(g+</span><span
+ style="color: rgb(0, 0, 128);">SIGN</span><span
+ style="color: rgb(0, 0, 0);">(r,g)); </span><span
+ style="color: rgb(128, 128, 128);"><i>//This is Dm - Ks.<br></i></span><span
+ style="color: rgb(0, 0, 0);">                s=c=</span><span
+ style="color: rgb(128, 0, 128);">1.0</span><span
+ style="color: rgb(0, 0, 0);">;<br>                p=</span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);">;<br>                <b>for</b> (i=m-</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">;i&gt;=l;i--) {<br>                    </span><span
+ style="color: rgb(128, 128, 128);"><i>/*A plane rotation as in the original QL, followed by Givens rotations to restore tridiagonal form. */<br></i></span><span
+ style="color: rgb(0, 0, 0);">                    f=s*e[i];<br>                    b=c*e[i];<br>                    e[i+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=(r=</span><span
+ style="color: rgb(0, 0, 128);">pythag</span><span
+ style="color: rgb(0, 0, 0);">(f,g));<br>                    <b>if</b> (r == </span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);">) { </span><span
+ style="color: rgb(128, 128, 128);"><i>//Recover from underflow.<br></i></span><span
+ style="color: rgb(0, 0, 0);">                        d[i+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">] -= p;<br>                        e[m]=</span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);">;<br>                        <b>break</b>;<br>                    }<br>                    s=f/r;<br>                    c=g/r;<br>                    g=d[i+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]-p;<br>                    r=(d[i]-g)*s+</span><span
+ style="color: rgb(128, 0, 128);">2.0</span><span
+ style="color: rgb(0, 0, 0);">*c*b;<br>                    d[i+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=g+(p=s*r);<br>                    g=c*r-b;<br>                    </span><span
+ style="color: rgb(128, 128, 128);"><i>/* Next loop can be omitted if eigenvectors not wanted*/<br></i></span><span
+ style="color: rgb(0, 0, 0);">                    <b>for</b> (k=</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">;k&lt;=n;k++) { </span><span
+ style="color: rgb(128, 128, 128);"><i>//Form eigenvectors.<br></i></span><span
+ style="color: rgb(0, 0, 0);">                        f=z[k][i+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">];<br>                        z[k][i+</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=s*z[k][i]+c*f;<br>                        z[k][i]=c*z[k][i]-s*f;<br>                    }<br>                }<br>                <b>if</b> (r == </span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);"> &amp;&amp; i &gt;= l) <b>continue</b>;<br>                d[l] -= p;<br>                e[l]=g;<br>                e[m]=</span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);">;<br>            }<br>        } <b>while</b> (m != l);<br>    }<br>}<br></span></pre>
+<span style="font-family: monospace;"><br>
+</span><br>
+</body>
+</html>

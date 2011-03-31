@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Assembly inline</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><a href="page3.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: right;"><a
+ href="page5.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Segunda
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Desenvolvimento de um fluxo completo de
+programa&ccedil;&atilde;o em assembly a partir do c&oacute;digo
+especificado.<br>
+</small></small></big></big></big></span><br>
+<span style="font-weight: bold;">[Assembly
+inline]</span><br>
+<span style="font-family: monospace;"><big><big><big><small><small>&nbsp;
+</small></small></big></big></big></span><br>
+<span style="font-family: monospace;"><big>Constru&ccedil;&atilde;o de
+blocos em assembly inline para arquitetura PowerPC;<br>
+Utilizando os registradores de acordo com a tabela abaixo;<br>
+</big></span>
+<pre><span style="color: rgb(128, 128, 128);"><i>/*<br>TABELA DE ALOCACAO DE REGISTRADORES<br>    fr31 = tFloat0;<br>    fr30 = tFloat1;<br>    fr29 = tFloat2;<br>    fr28 = s;<br>    fr27 = r;<br>    fr26 = p;<br>    fr25 = g;<br>    fr24 = f;<br>    fr23 = dd;<br>    fr22 = c;<br>    fr21 = b;<br>    fr20 = absa;<br>    fr19 = absb;<br>    <br>    r31 = tInt;<br>    r30 = m;<br>    r29 = l;<br>    r28 = iter;<br>    r27 = i;<br>    r26 = k;<br>    ----PARAMETROS----<br>    r25 = ponteiro { float d[] }<br>    r24 = ponteiro { float e[] }<br>    r23 = { int n }<br>    r22 = ponteiro { float **z }<br>*/</i></span><span
+ style="color: rgb(0, 0, 0);">    </span></pre>
+<br>
+<span style="font-family: monospace;"><br>
+</span>[<a href="inline1.html">inline1.html</a>] <br>
+<div style="margin-left: 40px;">Implementa&ccedil;&atilde;o do primeiro
+<span style="font-style: italic;">for</span> atrav&eacute;s de assembly
+inline;<br>
+</div>
+<br>
+[<a href="inline2.html">inline2.html</a>] <br>
+<div style="margin-left: 40px;">Agora temos tamb&eacute;m a
+implementa&ccedil;&atilde;o do quinto <span style="font-style: italic;">for</span>
+atrav&eacute;s de assembly inline;<br>
+<br>
+</div>
+[<a href="inline3.html">inline3.html</a>]<br>
+<div style="margin-left: 40px;">Inser&ccedil;&atilde;o/constru&ccedil;&atilde;o
+do inline do sqrt;<br>
+<br>
+</div>
+[<a href="inline4.html">inline4.html</a>]<br>
+<div style="margin-left: 40px;">Inline de trecho de c&oacute;digo que
+cont&eacute;m uma mensagem;<br>
+</div>
+<div style="margin-left: 40px;">Estrutura&ccedil;&atilde;o dos blocos
+atrav&eacute;s de diretivas { #if , #else , #endif };<br>
+<span style="font-style: italic;">Resolvi usar essas diretivas para
+facilitar a identifica&ccedil;&atilde;o/localiza&ccedil;&atilde;o </span><br
+ style="font-style: italic;">
+<span style="font-style: italic;">de poss&iacute;veis erros na
+implenta&ccedil;&atilde;o;</span><br style="font-style: italic;">
+<br>
+</div>
+[<a href="inline5.html">inline5.html</a>] <br>
+<div style="margin-left: 40px;">Expans&atilde;o de alguns blocos inline
+para englobar mais c&oacute;digo;<br>
+<br>
+</div>
+[<a href="inline6.html">inline6.html</a>] <br>
+<div style="margin-left: 40px;">Expandindo mais blocos;<br>
+<br>
+</div>
+[<a href="inline7.html">inline7.html</a>] <br>
+<div style="margin-left: 40px;">Vers&atilde;o final do assembly inline
+usando diretivas;<br>
+<br>
+</div>
+[<a href="inline8.html">inline8.html</a>]<br>
+<div style="margin-left: 40px;">Retirada das diretivas e consequente
+parte n&atilde;o asm;<br>
+</div>
+<br>
+<br>
+<br>
+</body>
+</html>

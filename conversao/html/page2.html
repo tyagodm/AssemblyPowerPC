@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Testando as implementa&ccedil;&otilde;es</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><a href="page1.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: right;"><a
+ href="page3.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Segunda
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Desenvolvimento de um fluxo completo de
+programa&ccedil;&atilde;o em assembly a partir do c&oacute;digo
+especificado.<br>
+<br>
+</small></small></big></big></big></span><span
+ style="font-weight: bold;">[Testando
+as implementa&ccedil;&otilde;es]<br>
+<br>
+</span>&nbsp; Ap&oacute;s cada etapa
+do processo ser&aacute; realizado um teste de
+forma &agrave; tentar analisar e garantir a <br>
+&nbsp;integridade do algoritmo e
+de seu objetivo. Para isso ser&aacute; utilizado o arquivo de teste
+ao final<br>
+&nbsp;da p&aacute;gina para, atrav&eacute;s do resultado
+(sa&iacute;da), verificarmos
+alguma falha na realiza&ccedil;&atilde;o da etapa.<br>
+<span style="font-family: monospace;"><br>
+O arquivo de teste tamb&eacute;m pode ser visualisado em <a
+ href="teste.html">teste.html</a>.<br>
+</span><br>
+<small>Para este teste, durante as diversas etapas de
+implementa&ccedil;&atilde;o, espera-se obter como resposta os valores:</small><br>
+<div style="margin-left: 40px;"><font size="-2">/*<br>
+&nbsp;[ RESULTADOS ESPERADOS ]<br>
+&nbsp; [D]<br>
+&nbsp;&nbsp; 0.389544 -2.358187 3.675316 8.293326<br>
+&nbsp; [E]<br>
+&nbsp;&nbsp; 0.000000 0.000000 0.000000 0.000000<br>
+&nbsp; [Z]<br>
+&nbsp;&nbsp; [z1] -0.777015&nbsp; 0.349108&nbsp; 0.514668 0.097408<br>
+&nbsp;&nbsp; [z2]&nbsp; 0.237167 -0.586184&nbsp; 0.688450 0.355214<br>
+&nbsp;&nbsp; [z3]&nbsp; 0.390694&nbsp; 0.618828&nbsp; 0.041345 0.680221<br>
+&nbsp;&nbsp; [z4] -0.432848 -0.389311 -0.509357 0.633747<br>
+*/<br>
+</font></div>
+<br>
+<pre><span style="color: rgb(0, 128, 0);">//---------[teste.c]----------</span><br></pre>
+<pre><span style="color: rgb(128, 128, 128);"><i>//Inclus&atilde;o do arquivo da etapa a ser verificada<br></i></span><span
+ style="color: rgb(0, 128, 0);">#include "versao_verificada.c"  <br><br></span><span
+ style="color: rgb(128, 0, 0);">int</span><span
+ style="color: rgb(0, 0, 0);"> </span><span
+ style="color: rgb(0, 0, 128);">main</span><span
+ style="color: rgb(0, 0, 0);">( )<br>{<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);">  d[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">];<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);">  e[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">];<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> z0[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">] = {</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">};<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> z1[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">] = {</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">};<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> z2[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">] = {</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">};<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> z3[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">] = {</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">};<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);"> z4[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">] = {</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">};<br> </span><span
+ style="color: rgb(128, 0, 0);">float</span><span
+ style="color: rgb(0, 0, 0);">* z[</span><span
+ style="color: rgb(0, 0, 255);">5</span><span
+ style="color: rgb(0, 0, 0);">] = { z0,z1,z2,z3,z4 };<br> <br> d[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">; d[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">; d[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">; d[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">;<br> e[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">; e[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">; e[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">; e[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">]=</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">;<br><br> </span><span
+ style="color: rgb(0, 0, 128);">printf</span><span
+ style="color: rgb(0, 0, 0);">( </span><span
+ style="color: rgb(221, 0, 0);">"Diagonais</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n\n</span><span
+ style="color: rgb(221, 0, 0);">"</span><span
+ style="color: rgb(0, 0, 0);">,<br>  d,d[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],d[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],d[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],d[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  e,e[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],e[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],e[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],e[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">] );<br> </span><span
+ style="color: rgb(0, 0, 128);">printf</span><span
+ style="color: rgb(0, 0, 0);">(</span><span
+ style="color: rgb(221, 0, 0);">"Output[%d]</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">"</span><span
+ style="color: rgb(0, 0, 0);">,<br>  z,<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">]);<br>  <br> </span><span
+ style="color: rgb(0, 0, 128);">tqli</span><span
+ style="color: rgb(0, 0, 0);">(d,e,</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">,z);<br> <br> </span><span
+ style="color: rgb(0, 0, 128);">printf</span><span
+ style="color: rgb(0, 0, 0);">( </span><span
+ style="color: rgb(221, 0, 0);">"Diagonais</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">[%d] %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n\n</span><span
+ style="color: rgb(221, 0, 0);">"</span><span
+ style="color: rgb(0, 0, 0);">,<br>  d,d[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],d[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],d[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],d[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  e,e[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],e[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],e[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],e[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">] );<br> </span><span
+ style="color: rgb(0, 0, 128);">printf</span><span
+ style="color: rgb(0, 0, 0);">(</span><span
+ style="color: rgb(221, 0, 0);">"Output[%d]</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">%d= %f %f %f %f</span><span
+ style="color: rgb(255, 0, 255);">\n</span><span
+ style="color: rgb(221, 0, 0);">"</span><span
+ style="color: rgb(0, 0, 0);">,<br>  z,<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],<br>  z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">],z[</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">][</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">]);<br> <br> <b>return</b> </span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">;<br>}<br><br></span></pre>
+<br>
+</body>
+</html>

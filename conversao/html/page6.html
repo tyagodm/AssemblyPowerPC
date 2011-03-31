@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Uma an&aacute;lise da sa&iacute;da final</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><a href="page5.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: right;"><a
+ href="../index.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Segunda
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Desenvolvimento de um fluxo completo de
+programa&ccedil;&atilde;o em assembly a partir do c&oacute;digo
+especificado.</small></small><br>
+</big></big></big></span><br>
+<span style="font-weight: bold;">[Uma
+an&aacute;lise da
+sa&iacute;da final]</span><br>
+<br>
+Lembrando que, para o teste principal, deve-se ter como sa&iacute;da os
+valores:<br>
+<div style="margin-left: 40px;"><small>/* RESULTADOS ESPERADOS<br>
+[D]<br>
+&nbsp;0.389544 -2.358187 3.675316 8.293326<br>
+[E]<br>
+&nbsp;0.000000 0.000000 0.000000 0.000000<br>
+[Z]<br>
+&nbsp;[z1] -0.777015&nbsp; 0.349108&nbsp; 0.514668 0.097408<br>
+&nbsp;[z2]&nbsp; 0.237167 -0.586184&nbsp; 0.688450 0.355214<br>
+&nbsp;[z3]&nbsp; 0.390694&nbsp; 0.618828&nbsp; 0.041345 0.680221<br>
+&nbsp;[z4] -0.432848 -0.389311 -0.509357 0.633747<br>
+*/</small><br>
+</div>
+<br>
+Tendo obtido a posi&ccedil;&atilde;o de mem&oacute;ria onde
+est&atilde;o os dados atrav&eacute;s do readelf,<br>
+realizei um dump da mem&oacute;ria e obtive os valores:<br>
+<div style="margin-left: 40px;">[D]<br>
+</div>
+<div style="margin-left: 80px;">00000000 / 3ec7724e / c016ec88 /
+406b3861 / 4104b177<br>
+</div>
+<div style="margin-left: 40px;">[E]<br>
+</div>
+<div style="margin-left: 80px;">00000000 / 29800000 / 00000000 /
+31000000 / 00000000<br>
+</div>
+<div style="margin-left: 40px;">[Z]<br>
+</div>
+<div style="margin-left: 80px;">[z0] 3f800000 / 00000000 / 00000000 /
+00000000 / 00000000 <br>
+</div>
+<div style="margin-left: 80px;">[z1] 00000000 / bf46ea79 / 3eb2be3f /
+3f03c149 / 3dc77dce<br>
+[z2] 00000000 / 3e72dbdc / bf16102c / 3f303e3d / 3eb5de97<br>
+[z3] 00000000 / 3ec8091b / 3f1e6b89 / 3d29596c / 3f2e22ef <br>
+[z4] 00000000 / bedd9e3a / bec753d3 / bf02653a / 3f223d3a <br>
+</div>
+<br>
+Utilizando das ferramentas de convers&atilde;o dispon&iacute;veis no
+endere&ccedil;o&nbsp; <a
+ href="http://babbage.cs.qc.edu/IEEE-754/32bit.html">http://babbage.cs.qc.edu/IEEE-754/32bit.html</a><br>
+realizei a convers&atilde;o dos valores contidos na mem&oacute;ria e
+obtive como resultado os seguintes valores abaixo:<br>
+<br>
+<div style="margin-left: 40px;">[D] <br>
+</div>
+<div style="margin-left: 80px;">0 / 0.38954395055770874 /
+-2.358186721801758 / 3.675316095352173 / 8.293326377868652<br>
+</div>
+<div style="margin-left: 40px;">[E] <br>
+</div>
+<div style="margin-left: 80px;">0 / <span
+ style="color: rgb(153, 51, 0);">5.684341886080802e-14</span> / 0 / <span
+ style="color: rgb(153, 51, 0);">1.862645149230957e-9</span> / 0<br>
+</div>
+<div style="margin-left: 40px;">[Z]<br>
+</div>
+<div style="margin-left: 80px;">[z1] -0.7770152688026428 /&nbsp;
+0.3491077125072479&nbsp; / 0.5146680474281311&nbsp; /
+0.09740792214870453<br>
+[z2] 0.23716682195663452 / -0.5861842632293701&nbsp; /
+0.6884496808052063&nbsp; / 0.35521385073661804<br>
+[z3] 0.3906944692134857&nbsp; / 0.6188283562660217&nbsp;&nbsp; /
+0.04134504497051239 / 0.6802205443382263<br>
+[z4] -0.432847797870636&nbsp; / -0.38931140303611755 /
+-0.5093570947647095 / 0.6337467432022095<br>
+</div>
+<br>
+Repare que os valores em destaque <span style="font-weight: bold;">aparentemente</span>
+n&atilde;o coincidem.<br>
+Suspeitei que a causa seria apenas um arredodamento na
+exibi&ccedil;&atilde;o em tela do arquivo de teste.<br>
+Confirmei isso&nbsp; usando "%.50f" na exibi&ccedil;&atilde;o destas
+posi&ccedil;&otilde;es no arquivo de <br>
+teste (usando a vers&atilde;o goto8.c) e obtive como resultado os
+valores:<br>
+<div style="margin-left: 40px;">[E]<br>
+</div>
+<div style="margin-left: 80px;">0.0000000000000<span
+ style="color: rgb(153, 51, 0);">568434188608080</span>1486968994140625000000<br>
+0.000000<br>
+0.00000000<span style="color: rgb(153, 51, 0);">1862645149230957</span>03125000000000000000000000<br>
+0.000000<br>
+</div>
+<br>
+Logo, s&atilde;o id&ecirc;nticos;<br>
+</body>
+</html>

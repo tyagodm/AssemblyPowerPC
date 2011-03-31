@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>goto.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #808080'><i>/* Retirada das estruturas de repeticao */
+
+</i></span><span style='color: #008000'>#include &lt;math.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>tqli</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> d[], </span><span style='color: #800000'>float</span><span style='color: #000000'> e[], </span><span style='color: #800000'>int</span><span style='color: #000000'> n, </span><span style='color: #800000'>float</span><span style='color: #000000'> **z)
+{
+    </span><span style='color: #800000'>int</span><span style='color: #000000'> m,l,iter,i,k;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> s,r,p,g,f,dd,c,b;
+
+    </span><span style='color: #808080'><i>/*Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    </span><span style='color: #800000'>float</span><span style='color: #000000'> absa;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> absb;
+    </span><span style='color: #808080'><i>/*Fim: Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    
+    </span><span style='color: #808080'><i>/*FOR 1: for (i=2;i&lt;=n;i++) */
+</i></span><span style='color: #000000'>    i=</span><span style='color: #0000ff'>2</span><span style='color: #000000'>;
+    LABELstartOFfor1:
+    <b>if</b>(i&lt;=n){
+     e[i-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=e[i];   </span><span style='color: #808080'><i>// Convenient to renumber the elements of e.
+</i></span><span style='color: #000000'>     i++;
+     <b>goto</b> LABELstartOFfor1;
+    }
+    
+    e[n]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+    </span><span style='color: #808080'><i>/*FOR 2: for (l=1;l&lt;=n;l++)*/
+</i></span><span style='color: #000000'>    l=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    LABELstartOFfor2:
+    <b>if</b>(l&lt;=n){
+        iter=</span><span style='color: #0000ff'>0</span><span style='color: #000000'>;
+	LABELstartOFdowhile:
+        </span><span style='color: #808080'><i>/*do*/</i></span><span style='color: #000000'>{
+            </span><span style='color: #808080'><i>/*FOR 3:for (m=l;m&lt;=n-1;m++)*/
+</i></span><span style='color: #000000'>	    m=l;
+	    LABELstartOFfor3:
+	    <b>if</b>(m&lt;=n-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>){ </span><span style='color: #808080'><i>//Look for a single small subdiagonal element to split the matrix.
+</i></span><span style='color: #000000'>                dd=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(d[m])+</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(d[m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]);
+                <b>if</b> ((</span><span style='color: #800000'>float</span><span style='color: #000000'>)(</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(e[m])+dd) == dd){ <b>goto</b> LABELendOFfor3; </span><span style='color: #808080'><i>/*break;*/</i></span><span style='color: #000000'>}
+		m++;
+		<b>goto</b> LABELstartOFfor3;
+            } LABELendOFfor3:
+            <b>if</b> (m != l) {
+                <b>if</b> (iter++ == </span><span style='color: #0000ff'>30</span><span style='color: #000000'>){
+		 	</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Numerical Recipes run-time error...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"Too many iterations in tqli</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"...now exiting to system...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>exit</span><span style='color: #000000'>(</span><span style='color: #0000ff'>1</span><span style='color: #000000'>);
+		}
+                g=(d[l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]-d[l])/(</span><span style='color: #800080'>2.0</span><span style='color: #000000'>*e[l]);  </span><span style='color: #808080'><i>//Form shift.
+</i></span><span style='color: #000000'>		
+		</span><span style='color: #808080'><i>/*Substituicao do pythag
+		* r=pythag(g,1.0);
+		*/
+</i></span><span style='color: #000000'>		absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>);
+		<b>if</b> (absa &gt; absb) 
+			r = absa*</span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>+</span><span style='color: #808080'><i>/*SQR(absb/absa)*/</i></span><span style='color: #000000'>((absb/absa)== </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #800080'>0.0</span><span style='color: #000000'> : (absb/absa)*(absb/absa)));
+		<b>else</b> 
+			r = (absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #800080'>0.0</span><span style='color: #000000'> : absb*</span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>+</span><span style='color: #808080'><i>/*SQR(absa/absb)*/</i></span><span style='color: #000000'>( (absa/absb)==</span><span style='color: #800080'>0.0</span><span style='color: #000000'>?</span><span style='color: #800080'>0.0</span><span style='color: #000000'>:(absa/absb)*(absa/absb))));
+		</span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>                
+		g=d[m]-d[l]+e[l]/(g+((g) &gt;= </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r) : -</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r))</span><span style='color: #808080'><i>/*SIGN(r,g)*/</i></span><span style='color: #000000'>); </span><span style='color: #808080'><i>//This is Dm - Ks.
+</i></span><span style='color: #000000'>                s=c=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+                p=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                </span><span style='color: #808080'><i>/*FOR 4:for (i=m-1;i&gt;=l;i--) */
+</i></span><span style='color: #000000'>		i=m-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		LABELstartOFfor4:
+		<b>if</b>(i&gt;=l){
+                    </span><span style='color: #808080'><i>/*A plane rotation as in the original QL, followed by Givens rotations to restore tridiagonal form. */
+</i></span><span style='color: #000000'>                    f=s*e[i];
+                    b=c*e[i];
+		
+		    </span><span style='color: #808080'><i>/*Substituicao do pythag
+		    * r=pythag(f,g);
+		    */
+</i></span><span style='color: #000000'>		    absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(f);
+		    absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		    <b>if</b> (absa &gt; absb) 
+		    	r = absa*</span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>+</span><span style='color: #808080'><i>/*SQR(absb/absa)*/</i></span><span style='color: #000000'>( (absb/absa) == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #800080'>0.0</span><span style='color: #000000'> : (absb/absa)*(absb/absa)));
+		    <b>else</b> 
+		    	r = (absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #800080'>0.0</span><span style='color: #000000'> : absb*</span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>+</span><span style='color: #808080'><i>/*SQR(absa/absb)*/</i></span><span style='color: #000000'>((absa/absb) == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ? </span><span style='color: #800080'>0.0</span><span style='color: #000000'> : (absa/absb)*(absa/absb))));
+		    </span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>                    
+		    
+		    e[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]= r; </span><span style='color: #808080'><i>//(r=pythag(f,g));
+</i></span><span style='color: #000000'>                    <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) { </span><span style='color: #808080'><i>//Recover from underflow.
+</i></span><span style='color: #000000'>                        d[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>] -= p;
+                        e[m]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                        <b>goto</b> LABELendOFfor4;</span><span style='color: #808080'><i>/*break;*/
+</i></span><span style='color: #000000'>                    }
+                    s=f/r;
+                    c=g/r;
+                    g=d[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]-p;
+                    r=(d[i]-g)*s+</span><span style='color: #800080'>2.0</span><span style='color: #000000'>*c*b;
+                    d[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=g+(p=s*r);
+                    g=c*r-b;
+                    </span><span style='color: #808080'><i>/* Next loop can be omitted if eigenvectors not wanted*/
+</i></span><span style='color: #000000'>                    </span><span style='color: #808080'><i>/*FOR 5: for (k=1;k&lt;=n;k++) */
+</i></span><span style='color: #000000'>		    k=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    LABELstartOFfor5:
+		    <b>if</b>(k&lt;=n){ </span><span style='color: #808080'><i>//Form eigenvectors.
+</i></span><span style='color: #000000'>                        f=z[k][i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>];
+                        z[k][i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=s*z[k][i]+c*f;
+                        z[k][i]=c*z[k][i]-s*f;
+			k++;
+			<b>goto</b> LABELstartOFfor5;
+                    }
+		    i--;
+		    <b>goto</b> LABELstartOFfor4;
+                } LABELendOFfor4:
+                <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> &amp;&amp; i &gt;= l) <b>goto</b> LABELstartOFdowhile;</span><span style='color: #808080'><i>/*continue;*/
+</i></span><span style='color: #000000'>                d[l] -= p;
+                e[l]=g;
+                e[m]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+            }
+        }
+	</span><span style='color: #808080'><i>/* while (m != l);*/
+</i></span><span style='color: #000000'>	<b>if</b>(m != l){
+	  <b>goto</b> LABELstartOFdowhile;
+	}
+	l++;
+	<b>goto</b> LABELstartOFfor2;
+    }
+}
+
+
+</span></pre></body></html>

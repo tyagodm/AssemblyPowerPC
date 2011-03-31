@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>original.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #008000'>#include &lt;math.h&gt;
+#include "nrutil.h"
+#include "pythag.c"
+
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>tqli</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> d[], </span><span style='color: #800000'>float</span><span style='color: #000000'> e[], </span><span style='color: #800000'>int</span><span style='color: #000000'> n, </span><span style='color: #800000'>float</span><span style='color: #000000'> **z)
+</span><span style='color: #808080'><i>/* QL algorithm with implicit shifts, to determine the eigenvalues 
+and eigenvectors of a real, symmetric, tridiagonal matrix, or of a 
+real, symmetric matrix previously reduced by tred2 §11.2. On input, 
+d[1..n] contains the diagonal elements of the tridiagonal matrix. 
+On output, it returns the eigenvalues. The vector e[1..n] inputs the 
+subdiagonal elements of the tridiagonal matrix, with e[1] arbitrary. 
+On output e is destroyed. When finding only the eigenvalues, several 
+lines may be omitted, as noted in the comments. If the eigenvectors 
+of a tridiagonal matrix are desired, the matrix z[1..n][1..n] is 
+input as the identity matrix. If the eigenvectors of a matrix that 
+has been reduced by tred2 are required, then z is input as the matrix 
+output by tred2. In either case, the kth column of z returns the 
+normalized eigenvector corresponding to d[k].
+*/
+</i></span><span style='color: #000000'>{
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> </span><span style='color: #000080'>pythag</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> a, </span><span style='color: #800000'>float</span><span style='color: #000000'> b);
+    </span><span style='color: #800000'>int</span><span style='color: #000000'> m,l,iter,i,k;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> s,r,p,g,f,dd,c,b;
+
+    <b>for</b> (i=</span><span style='color: #0000ff'>2</span><span style='color: #000000'>;i&lt;=n;i++) e[i-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=e[i];   </span><span style='color: #808080'><i>// Convenient to renumber the elements of e.
+</i></span><span style='color: #000000'>    e[n]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+    <b>for</b> (l=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;l&lt;=n;l++) {
+        iter=</span><span style='color: #0000ff'>0</span><span style='color: #000000'>;
+        <b>do</b> {
+            <b>for</b> (m=l;m&lt;=n-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;m++){ </span><span style='color: #808080'><i>//Look for a single small subdiagonal element to split the matrix.
+</i></span><span style='color: #000000'>                dd=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(d[m])+</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(d[m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]);
+                <b>if</b> ((</span><span style='color: #800000'>float</span><span style='color: #000000'>)(</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(e[m])+dd) == dd) <b>break</b>;
+            }
+            <b>if</b> (m != l) {
+                <b>if</b> (iter++ == </span><span style='color: #0000ff'>30</span><span style='color: #000000'>) </span><span style='color: #000080'>nrerror</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"Too many iterations in tqli"</span><span style='color: #000000'>);
+                g=(d[l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]-d[l])/(</span><span style='color: #800080'>2.0</span><span style='color: #000000'>*e[l]);  </span><span style='color: #808080'><i>//Form shift.
+</i></span><span style='color: #000000'>                r=</span><span style='color: #000080'>pythag</span><span style='color: #000000'>(g,</span><span style='color: #800080'>1.0</span><span style='color: #000000'>);
+                g=d[m]-d[l]+e[l]/(g+</span><span style='color: #000080'>SIGN</span><span style='color: #000000'>(r,g)); </span><span style='color: #808080'><i>//This is Dm - Ks.
+</i></span><span style='color: #000000'>                s=c=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+                p=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                <b>for</b> (i=m-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;i&gt;=l;i--) {
+                    </span><span style='color: #808080'><i>/*A plane rotation as in the original QL, followed by Givens rotations to restore tridiagonal form. */
+</i></span><span style='color: #000000'>                    f=s*e[i];
+                    b=c*e[i];
+                    e[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=(r=</span><span style='color: #000080'>pythag</span><span style='color: #000000'>(f,g));
+                    <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) { </span><span style='color: #808080'><i>//Recover from underflow.
+</i></span><span style='color: #000000'>                        d[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>] -= p;
+                        e[m]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                        <b>break</b>;
+                    }
+                    s=f/r;
+                    c=g/r;
+                    g=d[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]-p;
+                    r=(d[i]-g)*s+</span><span style='color: #800080'>2.0</span><span style='color: #000000'>*c*b;
+                    d[i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=g+(p=s*r);
+                    g=c*r-b;
+                    </span><span style='color: #808080'><i>/* Next loop can be omitted if eigenvectors not wanted*/
+</i></span><span style='color: #000000'>                    <b>for</b> (k=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;k&lt;=n;k++) { </span><span style='color: #808080'><i>//Form eigenvectors.
+</i></span><span style='color: #000000'>                        f=z[k][i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>];
+                        z[k][i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]=s*z[k][i]+c*f;
+                        z[k][i]=c*z[k][i]-s*f;
+                    }
+                }
+                <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> &amp;&amp; i &gt;= l) <b>continue</b>;
+                d[l] -= p;
+                e[l]=g;
+                e[m]=0.0;
+            }
+        } while (m != l);
+    }
+}
+
+</span></pre></body></html>

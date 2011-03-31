@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>inline4.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #808080'><i>/* inline da mensagem e 
+   esttruturação dos blocos
+*/
+
+</i></span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>tqli</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> d[], </span><span style='color: #800000'>float</span><span style='color: #000000'> e[], </span><span style='color: #800000'>int</span><span style='color: #000000'> n, </span><span style='color: #800000'>float</span><span style='color: #000000'> **z)
+{
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> k1 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> k2 = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> k05 = </span><span style='color: #800080'>0.5</span><span style='color: #000000'>;
+    </span><span style='color: #800000'>char</span><span style='color: #000000'> msg[</span><span style='color: #0000ff'>100</span><span style='color: #000000'>] = </span><span style='color: #dd0000'>"</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Numerical Recipes run-time error...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Too many iterations in tqli</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>...now exiting to system...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> tFloat0,tFloat1,tFloat2;
+    </span><span style='color: #800000'>int</span><span style='color: #000000'> tInt; 
+	
+    </span><span style='color: #800000'>int</span><span style='color: #000000'> m,l,iter,i,k;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> s,r,p,g,f,dd,c,b;
+
+    </span><span style='color: #808080'><i>/*Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    </span><span style='color: #800000'>float</span><span style='color: #000000'> absa;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> absb;
+    </span><span style='color: #808080'><i>/*Fim: Para uso pelo pythag*/
+/*
+TABELA DE ALOCACAO DE REGISTRADORES
+    fr31 = tFloat0;
+    fr30 = tFloat1;
+    fr29 = tFloat2;
+    fr28 = s;
+    fr27 = r;
+    fr26 = p;
+    fr25 = g;
+    fr24 = f;
+    fr23 = dd;
+    fr22 = c;
+    fr21 = b;
+    fr20 = absa;
+    fr19 = absb;
+    
+    r31 = tInt;
+    r30 = m;
+    r29 = l;
+    r28 = iter;
+    r27 = i;
+    r26 = k;
+    ----PARAMETROS----
+    r25 = ponteiro { float d[] }
+    r24 = ponteiro { float e[] }
+    r23 = { int n }
+    r22 = ponteiro { float **z }
+*/</i></span><span style='color: #000000'>    
+    
+ </span><span style='color: #808080'><i>/*FOR 1: for (i=2;i&lt;=n;i++) */
+</i></span><span style='color: #008000'>#if 0
+</span><span style='color: #808080'><i>     i = 2;
+    LABELstartOFfor1:
+    if(i&gt;n){ goto LABELendOFfor1;}
+     tInt = i-1;
+     e[ tInt ]=e[i];   // Convenient to renumber the elements of e.
+     i=i+1;
+     goto LABELstartOFfor1;
+    LABELendOFfor1:
+    e[n]=0.0;
+</i></span><span style='color: #008000'>#else
+</span><span style='color: #000000'> </span><span style='color: #000080'>asm</span><span style='color: #000000'>(
+  </span><span style='color: #dd0000'>"mr 5,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//salvando o ponteiro externo
+</i></span><span style='color: #000000'>     </span><span style='color: #dd0000'>"mr 24,%0</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>     </span><span style='color: #dd0000'>"mr 23,%1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>     </span><span style='color: #dd0000'>"li 27,2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//i=2
+</i></span><span style='color: #000000'>   </span><span style='color: #dd0000'>"LABELstartOFfor1:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"cmpw 27,23</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"bgt LABELendOFfor1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 	</span><span style='color: #808080'><i>//if(i&gt;n){ goto LABELendOFfor1;}
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"addi 31,27,-1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 	</span><span style='color: #808080'><i>//tInt = i-1
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 3,27,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"lfsx 4,3,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 
+    </span><span style='color: #dd0000'>"mulli 3,31,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"stfsx 4,3,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//e[ tInt ]=e[i]
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"addi 27,27,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//i=i+1
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"b LABELstartOFfor1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"LABELendOFfor1:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fsubs 31,31,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 3,23,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"stfsx 31,3,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 	</span><span style='color: #808080'><i>//e[n]=0.0
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr 31,5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//recarregando o ponteiro externo
+</i></span><span style='color: #000000'>   : </span><span style='color: #808080'><i>/*nenhuma saida*/
+</i></span><span style='color: #000000'>   :</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(e),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(n)
+   :</span><span style='color: #dd0000'>"r31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r27"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r24"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r23"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r3"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr4"
+</span><span style='color: #000000'> );
+</span><span style='color: #008000'>#endif    
+</span><span style='color: #000000'>    </span><span style='color: #808080'><i>/*FOR 2: for (l=1;l&lt;=n;l++)*/
+</i></span><span style='color: #000000'>    l=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    LABELstartOFfor2:
+    <b>if</b>(l&gt;n){ <b>goto</b> LABELendOFfor2; }
+   iter=</span><span style='color: #0000ff'>0</span><span style='color: #000000'>;
+    LABELstartOFdowhile:
+    </span><span style='color: #808080'><i>/*do{*/
+</i></span><span style='color: #000000'>        </span><span style='color: #808080'><i>/*FOR 3:for (m=l;m&lt;=n-1;m++)*/
+</i></span><span style='color: #000000'>     m=l;
+    LABELstartOFfor3:
+     tInt = n-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+     <b>if</b>(m&gt;tInt){ <b>goto</b> LABELendOFfor3; }
+</span><span style='color: #008000'>#if 1
+</span><span style='color: #000000'>	tFloat0 = d[ m ];
+	tFloat1 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tFloat0);
+	tInt = m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	tFloat0 = d[ tInt ];
+	tFloat2 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>( tFloat0 );
+        dd = tFloat1 + tFloat2;
+	tFloat0 = e[m];
+	tFloat1 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>( tFloat0 );
+	tFloat0 = tFloat1 + dd;
+</span><span style='color: #008000'>#else
+</span><span style='color: #000000'> </span><span style='color: #000080'>asm</span><span style='color: #000000'>(
+   </span><span style='color: #dd0000'>"mr 30,%2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mr 24,%3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mr 25,%4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mulli 5,30,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"lfsx 31,5,25</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fabs 30,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"addi 5,30,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mulli 5,5,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"lfsx 31,5,25</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fabs 29,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fadds 23,30,29</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mulli 5,30,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"lfsx 31,5,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fabs 30,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fadds 31,30,23</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fmr %0,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fmr %1,23</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  :</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(tFloat0),</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(dd)
+  :</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(m),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(e),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(d)
+  :</span><span style='color: #dd0000'>"r30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r24"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r25"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr29"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr23"
+</span><span style='color: #000000'> );
+</span><span style='color: #008000'>#endif
+</span><span style='color: #000000'>    
+    <b>if</b> ( tFloat0 == dd ){ <b>goto</b> LABELendOFfor3; }
+    m = m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    <b>goto</b> LABELstartOFfor3;
+   LABELendOFfor3:
+    <b>if</b> ( m == l) { <b>goto</b> LABELendOFif_1; }
+
+</span><span style='color: #008000'>#if 1
+</span><span style='color: #000000'>    <b>if</b> ( iter != </span><span style='color: #0000ff'>30</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_2; }
+    </span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Numerical Recipes run-time error...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Too many iterations in tqli</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>...now exiting to system...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+    </span><span style='color: #000080'>exit</span><span style='color: #000000'>(</span><span style='color: #0000ff'>1</span><span style='color: #000000'>);
+    LABELendOFif_2:
+    iter=iter+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    tInt = l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    tFloat0 = d[ tInt ] - d[l];
+    tFloat1 = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>*e[l];
+    g = (tFloat0)/(tFloat1); 
+    absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+    absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>);
+</span><span style='color: #008000'>#else
+</span><span style='color: #000000'> </span><span style='color: #000080'>asm</span><span style='color: #000000'>(
+   </span><span style='color: #dd0000'>"mr 28,%4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mr 29,%5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mr 25,%6</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"mr 24,%7</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fmr 7,%8</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"fmr 8,%9</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  
+
+  </span><span style='color: #dd0000'>"cmpi 3,0,28,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"bne 3,LABELendOFif_2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>	</span><span style='color: #808080'><i>//     if ( iter != 30){ goto LABELendOFif_2; }
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"li 0,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"li 3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mr 4,%10</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>  
+    </span><span style='color: #dd0000'>"li 5,100</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"sc</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>			</span><span style='color: #808080'><i>//printf("\nNumerical Recipes run-time error...\nToo many iterations in tqli\n...now exiting to system...\n");
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"li 0,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 
+    </span><span style='color: #dd0000'>"li 3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"sc</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>			</span><span style='color: #808080'><i>//exit(1);
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"LABELendOFif_2:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     LABELendOFif_2:
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"addi 28,28,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     iter=iter+1;
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"addi 5,29,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     tInt = l+1;
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mulli 5,5,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"lfsx 31,5,25</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     tFloat0 = d[ tInt ];
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mulli 5,29,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"lfsx 30,5,25</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     tFloat1 = d[ l ];
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fsubs 31,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     tFloat0 = d[ tInt ] - d[l];
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mulli 5,29,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"lfsx 30,5,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     tFloat1 = e[ l ];
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmuls 30,8,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     tFloat1 = 2.0*e[l];
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fdivs 25,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     g = (tFloat0)/(tFloat1); 
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fabs 20,25</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     absa=fabs(g);
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fabs 19,7</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//     absb=fabs(1.0);
+</i></span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr  %0,28</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmr %1,25</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmr %2,20</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmr %3,19</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    
+ :</span><span style='color: #dd0000'>"=r"</span><span style='color: #000000'>(iter),</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(g),</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(absa),</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(absb)
+ :</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(iter),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(l),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(d),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(e),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k1),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k2),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(msg)
+ :</span><span style='color: #dd0000'>"r28"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r29"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r25"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r24"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr7"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr8"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr25"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr20"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr19"
+</span><span style='color: #000000'> );	
+ 
+</span><span style='color: #008000'>#endif
+
+</span><span style='color: #000000'>	<b>if</b> (absa &lt;= absb){ <b>goto</b>  LABELendOFif_3_else_1; }
+	tFloat0 = (absb/absa);
+	<b>if</b>( tFloat0 != </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ){ <b>goto</b> LABELendOFif_4_else_1; }
+        tFloat1 = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; 
+        <b>goto</b> LABELendOFif_4;
+        LABELendOFif_4_else_1:
+        tFloat1 = tFloat0*tFloat0; 
+        LABELendOFif_4:
+
+</span><span style='color: #008000'>#if 1
+</span><span style='color: #000000'>	tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+	tFloat1 = tFloat0 + tFloat1;
+	tFloat0 = </span><span style='color: #000080'>sqrt2</span><span style='color: #000000'>( tFloat1 );
+	r = absa * tFloat0;
+</span><span style='color: #008000'>#else
+</span><span style='color: #000000'>  </span><span style='color: #000080'>asm</span><span style='color: #000000'>( </span><span style='color: #808080'><i>// tFloat0 = sqrt2( tFloat1 );
+</i></span><span style='color: #000000'>  	 </span><span style='color: #dd0000'>"fmr 30,%1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	 </span><span style='color: #dd0000'>"fmr 5,%2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	 </span><span style='color: #dd0000'>"fmr 31,%3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>               </span><span style='color: #808080'><i>//	tFloat0 = 1.0;
+</i></span><span style='color: #000000'>   	 </span><span style='color: #dd0000'>"fadds 30,%3,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>          </span><span style='color: #808080'><i>//	tFloat1 = tFloat0 + tFloat1;.
+</i></span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"li 3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"sqrt1_label_start_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"cmpi 3,0,3,50</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"bge 3,sqrt1_label_end_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fdivs 4,30,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fadds 4,31,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmuls 31,4,5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"addi 3,3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"b sqrt1_label_start_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"sqrt1_label_end_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmul 27,20,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>           </span><span style='color: #808080'><i>//r = absa * tFloat0;
+</i></span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fmr %0,27</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	:</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(r)
+ 	:</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat1),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k05),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k1)
+ 	:</span><span style='color: #dd0000'>"r3"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr27"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr20"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr4"
+</span><span style='color: #000000'>   );
+</span><span style='color: #008000'>#endif
+</span><span style='color: #000000'>			
+   <b>goto</b> LABELendOFif_3;
+  LABELendOFif_3_else_1:
+   tFloat0 = (absa/absb);
+   <b>if</b>(tFloat0 != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_5_else_1; }
+   tFloat1 = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+   <b>goto</b> LABELendOFif_5;
+  LABELendOFif_5_else_1:
+   tFloat1=tFloat0*tFloat0; 
+  LABELendOFif_5:
+
+</span><span style='color: #008000'>#if 1
+</span><span style='color: #000000'> tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tFloat1;
+ tFloat1 = </span><span style='color: #000080'>sqrt2</span><span style='color: #000000'>(tFloat0);
+</span><span style='color: #008000'>#else
+</span><span style='color: #000000'>  </span><span style='color: #000080'>asm</span><span style='color: #000000'>( </span><span style='color: #808080'><i>//tFloat1 = sqrt2(tFloat0);
+</i></span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fmr 30,%1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmr  5,%3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fadds 31,%4,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>               </span><span style='color: #808080'><i>//tFloat0 = 1.0 + tFloat1;
+</i></span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fmr 30,%4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>                    </span><span style='color: #808080'><i>//tFloat1 = 1.0;
+</i></span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"li 3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"sqrt2_label_start_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  	</span><span style='color: #dd0000'>"cmpi 3,0,3,50</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"bge 3,sqrt2_label_end_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fdivs 4,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fadds 4,30,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmuls 30,4,5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"addi 3,3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"b sqrt2_label_start_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"sqrt2_label_end_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	</span><span style='color: #dd0000'>"fmr %0,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   	:</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(tFloat1)
+ 	:</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat1),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat0),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k05),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k1)
+ 	:</span><span style='color: #dd0000'>"r3"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr4"
+</span><span style='color: #000000'>   );
+</span><span style='color: #008000'>#endif			
+</span><span style='color: #000000'>			
+			
+   <b>if</b>(absb != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_6_else_1; }
+    r = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; 
+    <b>goto</b> LABELendOFif_6;
+   LABELendOFif_6_else_1:
+    r = absb*tFloat1;  
+   LABELendOFif_6:
+   LABELendOFif_3:
+</span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>		
+		
+   <b>if</b>( g &lt; </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ){ <b>goto</b> LABELendOFif_7_else_1; }
+   tFloat0 = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r); 
+   <b>goto</b> LABELendOFif_7;
+  LABELendOFif_7_else_1:
+   tFloat0 = -</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r); 
+  LABELendOFif_7:
+	tFloat0 = g + tFloat0;
+	tFloat1 = e[l]/tFloat0;
+	tFloat0 = tFloat1 - d[l];
+	g = d[m] + tFloat0;
+	c=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+	s=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+        p=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+        i=m-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		LABELstartOFfor4:
+		<b>if</b>(i&lt;l){ <b>goto</b> LABELendOFfor4; }
+            f=s*e[i];
+            b=c*e[i];
+		    absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(f);
+		    absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		    <b>if</b> (absa &lt;= absb){ <b>goto</b> LABELendOFif_8_else_1; }
+		      tFloat0 = (absb/absa);
+			  <b>if</b>( tFloat0 != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_9_else_1; }
+                  tFloat1=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>; 
+                  <b>goto</b> LABELendOFif_9;
+              LABELendOFif_9_else_1:
+                  tFloat1 = tFloat0*tFloat0; 
+              LABELendOFif_9:
+			  tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tFloat1;
+			  tFloat1 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+</span><span style='color: #008000'>#if 1
+</span><span style='color: #000000'> tFloat1 = </span><span style='color: #000080'>sqrt2</span><span style='color: #000000'>(tFloat0);
+</span><span style='color: #008000'>#else		      
+</span><span style='color: #000000'>  </span><span style='color: #000080'>asm</span><span style='color: #000000'>( </span><span style='color: #808080'><i>//tFloat1 = sqrt2(tFloat0);
+</i></span><span style='color: #000000'>       	</span><span style='color: #dd0000'>"fmr 30,%1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmr 31,%2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmr  5,%3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"li 3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      </span><span style='color: #dd0000'>"sqrt3_label_start_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"cmpi 3,0,3,50</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"bge 3,sqrt3_label_end_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"fdivs 4,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"fadds 4,30,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmuls 30,4,5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"addi 3,3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"b sqrt3_label_start_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      </span><span style='color: #dd0000'>"sqrt3_label_end_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>       	</span><span style='color: #dd0000'>"fmr %0,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>       	:</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(tFloat1)
+ 	:</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat1),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat0),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k05)
+ 	:</span><span style='color: #dd0000'>"r3"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr4"
+</span><span style='color: #000000'>   );
+</span><span style='color: #008000'>#endif		      
+</span><span style='color: #000000'>		      
+		      r = absa*tFloat1;
+              <b>goto</b> LABELendOFif_8;
+		    LABELendOFif_8_else_1:
+		      tFloat0 = (absa/absb);
+			  <b>if</b>(tFloat0 != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_10_else_1; }
+                 tFloat1 = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; 
+                 <b>goto</b> LABELendOFif_10;
+              LABELendOFif_10_else_1:
+                 tFloat1 = tFloat0*tFloat0; 
+              LABELendOFif_10:
+			  tFloat0 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tFloat1;
+			  tFloat1 = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+
+</span><span style='color: #008000'>#if 1
+</span><span style='color: #000000'>     tFloat1 = </span><span style='color: #000080'>sqrt2</span><span style='color: #000000'>(tFloat0);
+</span><span style='color: #008000'>#else			    
+</span><span style='color: #000000'>  </span><span style='color: #000080'>asm</span><span style='color: #000000'>( </span><span style='color: #808080'><i>//tFloat1 = sqrt2(tFloat0);
+</i></span><span style='color: #000000'>       	</span><span style='color: #dd0000'>"fmr 30,%1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmr 31,%2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmr  5,%3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"li 3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      </span><span style='color: #dd0000'>"sqrt4_label_start_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"cmpi 3,0,3,50</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"bge 3,sqrt4_label_end_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"fdivs 4,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      	</span><span style='color: #dd0000'>"fadds 4,30,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"fmuls 30,4,5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"addi 3,3,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'> 	</span><span style='color: #dd0000'>"b sqrt4_label_start_while</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>      </span><span style='color: #dd0000'>"sqrt4_label_end_while:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>       	</span><span style='color: #dd0000'>"fmr %0,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>       	:</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(tFloat1)
+ 	:</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat1),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(tFloat0),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(k05)
+ 	:</span><span style='color: #dd0000'>"r3"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr4"
+</span><span style='color: #000000'>   );
+</span><span style='color: #008000'>#endif			  
+</span><span style='color: #000000'>			  
+			  <b>if</b>(absb != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_11_else_1; } 
+                      r = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                      <b>goto</b> LABELendOFif_11; 
+              LABELendOFif_11_else_1:
+                   r = absb*tFloat1;
+              LABELendOFif_11:
+		    LABELendOFif_8:		    
+		    
+		    tInt = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    e[ tInt ] = r; 
+            <b>if</b> ( r != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) { <b>goto</b> LABELendOFif_12; }
+                d[ tInt ] = d[ tInt ] - p;
+                e[m]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                <b>goto</b> LABELendOFfor4;</span><span style='color: #808080'><i>/*break;*/
+</i></span><span style='color: #000000'>            LABELendOFif_12:
+            s=f/r;
+            c=g/r;
+            g = d[ tInt ] - p;
+		    tFloat0 = d[i] - g;
+		    tFloat1 = tFloat0*s;
+		    tFloat0 = c*b;
+		    tFloat2 = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>*tFloat0; 
+            r= tFloat1 + tFloat2;
+		    p=s*r;
+            d[ tInt ] = g+p;
+		    tFloat0 = c*r;
+            g = tFloat0 - b;
+            </span><span style='color: #808080'><i>/*FOR 5: for (k=1;k&lt;=n;k++) */
+
+</i></span><span style='color: #008000'>#if 0
+</span><span style='color: #808080'><i>	k=1;
+       LABELstartOFfor5:
+	if(k&gt;n){ goto LABELendOFfor5; }
+        tInt = i+1;
+        f = z[k][ tInt ];
+	tFloat0 = s*z[k][i];
+	tFloat1 = c*f;
+        z[k][ tInt ] = tFloat0+tFloat1;
+        tFloat0 = c*z[k][i];
+	tFloat1 = s*f;
+	z[k][i]= tFloat0 - tFloat1;
+	k=k+1;
+	goto LABELstartOFfor5;
+       LABELendOFfor5:
+</i></span><span style='color: #008000'>#else</span><span style='color: #000000'>	    
+ </span><span style='color: #000080'>asm</span><span style='color: #000000'>(
+  </span><span style='color: #dd0000'>"fmr 28,%1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmr 24,%2</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmr 22,%3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr 27,%4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr 23,%5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr 22,%6</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr 5,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"li 26,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//k=1;
+</i></span><span style='color: #000000'>   </span><span style='color: #dd0000'>"LABELstartOFfor5:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"cmp 3,0,26,23</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"bgt 3,LABELendOFfor5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>  </span><span style='color: #808080'><i>//if(k&gt;n){ goto LABELendOFfor5; }
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"addi 31,27,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>     	</span><span style='color: #808080'><i>//tInt = i+1
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 3,26,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"lwzx 3,3,22</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//r3 = *(z+k) 
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 2,31,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"lfsx 24,2,3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//f = z[k][ tInt ]
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 2,27,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"lfsx 31,2,3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//z[k][i]
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fmuls 31,28,31</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>	</span><span style='color: #808080'><i>//tFloat0 = s*z[k][i]
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fmuls 30,22,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>	</span><span style='color: #808080'><i>//tFloat1 = c*f
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fadds 31,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 2,31,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"stfsx 31,2,3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//z[k][ tInt ] = tFloat0+tFloat1;
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"mulli 2,27,4</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"lfsx 30,2,3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'> 		</span><span style='color: #808080'><i>//z[k][i]
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fmuls 31,22,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>        </span><span style='color: #808080'><i>//tFloat0 = c*z[k][i];
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fmuls 30,28,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>	</span><span style='color: #808080'><i>//tFloat1 = s*f;
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"fsubs 31,31,30</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>    </span><span style='color: #dd0000'>"stfsx 31,2,3</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>		</span><span style='color: #808080'><i>//z[k][i]= tFloat0 - tFloat1;
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"addi 26,26,1</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"</span><span style='color: #000000'>	   	</span><span style='color: #808080'><i>//k=k+1;
+</i></span><span style='color: #000000'>    </span><span style='color: #dd0000'>"b LABELstartOFfor5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>   </span><span style='color: #dd0000'>"LABELendOFfor5:</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"fmr %0,24</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  </span><span style='color: #dd0000'>"mr 31,5</span><span style='color: #ff00ff'>\n\t</span><span style='color: #dd0000'>"
+</span><span style='color: #000000'>  :</span><span style='color: #dd0000'>"=fr"</span><span style='color: #000000'>(f)
+  :</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(s),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(f),</span><span style='color: #dd0000'>"fr"</span><span style='color: #000000'>(c),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(i),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(n),</span><span style='color: #dd0000'>"r"</span><span style='color: #000000'>(z)
+  :</span><span style='color: #dd0000'>"r31"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r27"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r26"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r23"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r22"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r5"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r2"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"r3"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr1"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr22"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr24"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr28"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr30"</span><span style='color: #000000'>,</span><span style='color: #dd0000'>"fr31"
+</span><span style='color: #000000'> ); 
+</span><span style='color: #008000'>#endif
+</span><span style='color: #000000'>		    
+		    
+	i = i-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	<b>goto</b> LABELstartOFfor4;
+	LABELendOFfor4:
+        <b>if</b> (r != </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ <b>goto</b> LABELendOFif_13;}
+	<b>if</b>(i &gt;= l) <b>goto</b> LABELstartOFdowhile;</span><span style='color: #808080'><i>/*continue;*/
+</i></span><span style='color: #000000'>	LABELendOFif_13:
+        d[l] = d[l] - p;
+        e[l]= g;
+        e[m]= </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+            
+     LABELendOFif_1:
+        </span><span style='color: #808080'><i>/*} while (m != l);*/
+</i></span><span style='color: #000000'>	<b>if</b>(m != l){
+	  <b>goto</b> LABELstartOFdowhile;
+	} 
+	</span><span style='color: #808080'><i>//LABELendOFdowhile:
+</i></span><span style='color: #000000'>	l = l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	<b>goto</b> LABELstartOFfor2;
+    LABELendOFfor2:
+    </span><span style='color: #000080'>asm</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"nop"</span><span style='color: #000000'>);
+}
+
+
+</span></pre></body></html>

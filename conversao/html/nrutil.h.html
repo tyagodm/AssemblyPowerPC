@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>nrutil.h.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #008000'>#ifndef _NR_UTILS_H_
+#define _NR_UTILS_H_
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>float</span><span style='color: #000000'> sqrarg;
+</span><span style='color: #008000'>#define SQR(a) ((sqrarg=(a)) == 0.0 ? 0.0 : sqrarg*sqrarg)
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>double</span><span style='color: #000000'> dsqrarg;
+</span><span style='color: #008000'>#define DSQR(a) ((dsqrarg=(a)) == 0.0 ? 0.0 : dsqrarg*dsqrarg)
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>double</span><span style='color: #000000'> dmaxarg1,dmaxarg2;
+</span><span style='color: #008000'>#define DMAX(a,b) (dmaxarg1=(a),dmaxarg2=(b),(dmaxarg1) &gt; (dmaxarg2) ?\
+        (dmaxarg1) : (dmaxarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>double</span><span style='color: #000000'> dminarg1,dminarg2;
+</span><span style='color: #008000'>#define DMIN(a,b) (dminarg1=(a),dminarg2=(b),(dminarg1) &lt; (dminarg2) ?\
+        (dminarg1) : (dminarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>float</span><span style='color: #000000'> maxarg1,maxarg2;
+</span><span style='color: #008000'>#define FMAX(a,b) (maxarg1=(a),maxarg2=(b),(maxarg1) &gt; (maxarg2) ?\
+        (maxarg1) : (maxarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>float</span><span style='color: #000000'> minarg1,minarg2;
+</span><span style='color: #008000'>#define FMIN(a,b) (minarg1=(a),minarg2=(b),(minarg1) &lt; (minarg2) ?\
+        (minarg1) : (minarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>long</span><span style='color: #000000'> lmaxarg1,lmaxarg2;
+</span><span style='color: #008000'>#define LMAX(a,b) (lmaxarg1=(a),lmaxarg2=(b),(lmaxarg1) &gt; (lmaxarg2) ?\
+        (lmaxarg1) : (lmaxarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>long</span><span style='color: #000000'> lminarg1,lminarg2;
+</span><span style='color: #008000'>#define LMIN(a,b) (lminarg1=(a),lminarg2=(b),(lminarg1) &lt; (lminarg2) ?\
+        (lminarg1) : (lminarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>int</span><span style='color: #000000'> imaxarg1,imaxarg2;
+</span><span style='color: #008000'>#define IMAX(a,b) (imaxarg1=(a),imaxarg2=(b),(imaxarg1) &gt; (imaxarg2) ?\
+        (imaxarg1) : (imaxarg2))
+
+</span><span style='color: #800000'>static</span><span style='color: #000000'> </span><span style='color: #800000'>int</span><span style='color: #000000'> iminarg1,iminarg2;
+</span><span style='color: #008000'>#define IMIN(a,b) (iminarg1=(a),iminarg2=(b),(iminarg1) &lt; (iminarg2) ?\
+        (iminarg1) : (iminarg2))
+
+#define SIGN(a,b) ((b) &gt;= 0.0 ? fabs(a) : -fabs(a))
+
+#if defined(__STDC__) || defined(ANSI) || defined(NRANSI) /* ANSI */
+
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>nrerror</span><span style='color: #000000'>(</span><span style='color: #800000'>char</span><span style='color: #000000'> error_text[]);
+</span><span style='color: #800000'>float</span><span style='color: #000000'> *</span><span style='color: #000080'>vector</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>int</span><span style='color: #000000'> *</span><span style='color: #000080'>ivector</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>unsigned</span><span style='color: #000000'> </span><span style='color: #800000'>char</span><span style='color: #000000'> *</span><span style='color: #000080'>cvector</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>unsigned</span><span style='color: #000000'> </span><span style='color: #800000'>long</span><span style='color: #000000'> *</span><span style='color: #000080'>lvector</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>double</span><span style='color: #000000'> *</span><span style='color: #000080'>dvector</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>float</span><span style='color: #000000'> **</span><span style='color: #000080'>matrix</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch);
+</span><span style='color: #800000'>double</span><span style='color: #000000'> **</span><span style='color: #000080'>dmatrix</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch);
+</span><span style='color: #800000'>int</span><span style='color: #000000'> **</span><span style='color: #000080'>imatrix</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch);
+</span><span style='color: #800000'>float</span><span style='color: #000000'> **</span><span style='color: #000080'>submatrix</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> **a, </span><span style='color: #800000'>long</span><span style='color: #000000'> oldrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> oldrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> oldcl, </span><span style='color: #800000'>long</span><span style='color: #000000'> oldch,
+	</span><span style='color: #800000'>long</span><span style='color: #000000'> newrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> newcl);
+</span><span style='color: #800000'>float</span><span style='color: #000000'> **</span><span style='color: #000080'>convert_matrix</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> *a, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch);
+</span><span style='color: #800000'>float</span><span style='color: #000000'> ***</span><span style='color: #000080'>f3tensor</span><span style='color: #000000'>(</span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch, </span><span style='color: #800000'>long</span><span style='color: #000000'> ndl, </span><span style='color: #800000'>long</span><span style='color: #000000'> ndh);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_vector</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> *v, </span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_ivector</span><span style='color: #000000'>(</span><span style='color: #800000'>int</span><span style='color: #000000'> *v, </span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_cvector</span><span style='color: #000000'>(</span><span style='color: #800000'>unsigned</span><span style='color: #000000'> </span><span style='color: #800000'>char</span><span style='color: #000000'> *v, </span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_lvector</span><span style='color: #000000'>(</span><span style='color: #800000'>unsigned</span><span style='color: #000000'> </span><span style='color: #800000'>long</span><span style='color: #000000'> *v, </span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_dvector</span><span style='color: #000000'>(</span><span style='color: #800000'>double</span><span style='color: #000000'> *v, </span><span style='color: #800000'>long</span><span style='color: #000000'> nl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nh);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_matrix</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> **m, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch);
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>free_dmatrix</span><span style='color: #000000'>(</span><span style='color: #800000'>double</span><span style='color: #000000'> **m, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nrh, </span><span style='color: #800000'>long</span><span style='color: #000000'> ncl, </span><span style='color: #800000'>long</span><span style='color: #000000'> nch);
+void free_imatrix(int **m, long nrl, long nrh, long ncl, long nch);
+void free_submatrix(float **b, long nrl, long nrh, long ncl, long nch);
+void free_convert_matrix(float **b, long nrl, long nrh, long ncl, long nch);
+void free_f3tensor(float ***t, long nrl, long nrh, long ncl, long nch,
+	long ndl, long ndh);
+
+#else /* ANSI */
+/* traditional - K&amp;R */
+
+void nrerror();
+float *vector();
+float **matrix();
+float **submatrix();
+float **convert_matrix();
+float ***f3tensor();
+double *dvector();
+double **dmatrix();
+int *ivector();
+int **imatrix();
+unsigned char *cvector();
+unsigned long *lvector();
+void free_vector();
+void free_dvector();
+void free_ivector();
+void free_cvector();
+void free_lvector();
+void free_matrix();
+void free_submatrix();
+void free_convert_matrix();
+void free_dmatrix();
+void free_imatrix();
+void free_f3tensor();
+
+#endif /* ANSI */
+
+/*Incluso por tyago*/
+#include "nrutil.c"
+
+#endif /* _NR_UTILS_H_ */
+
+</span></pre></body></html>

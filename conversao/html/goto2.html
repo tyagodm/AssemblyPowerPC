@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="Generator" content="Kate, the KDE Advanced Text Editor" />
+<title>goto2.html</title>
+</head>
+<body><pre>
+<span style='color: #000000'></span><span style='color: #808080'><i>/* Expansão das macros e quebra de operações */
+
+</i></span><span style='color: #008000'>#include &lt;math.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+</span><span style='color: #800000'>void</span><span style='color: #000000'> </span><span style='color: #000080'>tqli</span><span style='color: #000000'>(</span><span style='color: #800000'>float</span><span style='color: #000000'> d[], </span><span style='color: #800000'>float</span><span style='color: #000000'> e[], </span><span style='color: #800000'>int</span><span style='color: #000000'> n, </span><span style='color: #800000'>float</span><span style='color: #000000'> **z)
+{
+	</span><span style='color: #800000'>float</span><span style='color: #000000'> tF[</span><span style='color: #0000ff'>38</span><span style='color: #000000'>];</span><span style='color: #808080'><i>/*0..37*/
+</i></span><span style='color: #000000'>	</span><span style='color: #800000'>int</span><span style='color: #000000'>   tI[</span><span style='color: #0000ff'>9</span><span style='color: #000000'>]; </span><span style='color: #808080'><i>/*0..8*/
+
+</i></span><span style='color: #000000'>    </span><span style='color: #800000'>int</span><span style='color: #000000'> m,l,iter,i,k;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> s,r,p,g,f,dd,c,b;
+
+    </span><span style='color: #808080'><i>/*Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    </span><span style='color: #800000'>float</span><span style='color: #000000'> absa;
+    </span><span style='color: #800000'>float</span><span style='color: #000000'> absb;
+    </span><span style='color: #808080'><i>/*Fim: Para uso pelo pythag*/
+</i></span><span style='color: #000000'>    
+    </span><span style='color: #808080'><i>/*FOR 1: for (i=2;i&lt;=n;i++) */
+</i></span><span style='color: #000000'>    i=</span><span style='color: #0000ff'>2</span><span style='color: #000000'>;
+    LABELstartOFfor1:
+    <b>if</b>(i&lt;=n){
+     tI[</span><span style='color: #0000ff'>0</span><span style='color: #000000'>] = i-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+     e[tI[</span><span style='color: #0000ff'>0</span><span style='color: #000000'>]]=e[i];   </span><span style='color: #808080'><i>// Convenient to renumber the elements of e.
+</i></span><span style='color: #000000'>     i=i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+     <b>goto</b> LABELstartOFfor1;
+    }
+    
+    e[n]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+    </span><span style='color: #808080'><i>/*FOR 2: for (l=1;l&lt;=n;l++)*/
+</i></span><span style='color: #000000'>    l=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+    LABELstartOFfor2:
+    <b>if</b>(l&lt;=n){
+        iter=</span><span style='color: #0000ff'>0</span><span style='color: #000000'>;
+	LABELstartOFdowhile:
+        </span><span style='color: #808080'><i>/*do{*/
+</i></span><span style='color: #000000'>            </span><span style='color: #808080'><i>/*FOR 3:for (m=l;m&lt;=n-1;m++)*/
+</i></span><span style='color: #000000'>	    m=l;
+	    LABELstartOFfor3:
+	    tI[</span><span style='color: #0000ff'>1</span><span style='color: #000000'>] = n-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	    <b>if</b>(m&lt;=tI[</span><span style='color: #0000ff'>1</span><span style='color: #000000'>]){ </span><span style='color: #808080'><i>//Look for a single small subdiagonal element to split the matrix.
+</i></span><span style='color: #000000'>		   tF[</span><span style='color: #0000ff'>0</span><span style='color: #000000'>] = d[m];
+		  tF[</span><span style='color: #0000ff'>1</span><span style='color: #000000'>] = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tF[</span><span style='color: #0000ff'>0</span><span style='color: #000000'>]);
+		   tI[</span><span style='color: #0000ff'>2</span><span style='color: #000000'>] = m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		   tF[</span><span style='color: #0000ff'>2</span><span style='color: #000000'>] = d[tI[</span><span style='color: #0000ff'>2</span><span style='color: #000000'>]];
+		  tF[</span><span style='color: #0000ff'>3</span><span style='color: #000000'>] = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tF[</span><span style='color: #0000ff'>2</span><span style='color: #000000'>]);
+                dd = tF[</span><span style='color: #0000ff'>1</span><span style='color: #000000'>] + tF[</span><span style='color: #0000ff'>3</span><span style='color: #000000'>];
+		   tF[</span><span style='color: #0000ff'>4</span><span style='color: #000000'>] = e[m];
+		   tF[</span><span style='color: #0000ff'>5</span><span style='color: #000000'>] = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(tF[</span><span style='color: #0000ff'>4</span><span style='color: #000000'>]);
+		  tF[</span><span style='color: #0000ff'>6</span><span style='color: #000000'>] = tF[</span><span style='color: #0000ff'>5</span><span style='color: #000000'>] + dd;
+                <b>if</b> ( tF[</span><span style='color: #0000ff'>6</span><span style='color: #000000'>] == dd ){ <b>goto</b> LABELendOFfor3; }
+		m = m+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		<b>goto</b> LABELstartOFfor3;
+            } LABELendOFfor3:
+            <b>if</b> (m != l) {
+                <b>if</b> (iter == </span><span style='color: #0000ff'>30</span><span style='color: #000000'>){
+		 	</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>Numerical Recipes run-time error...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"Too many iterations in tqli</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>printf</span><span style='color: #000000'>(</span><span style='color: #dd0000'>"...now exiting to system...</span><span style='color: #ff00ff'>\n</span><span style='color: #dd0000'>"</span><span style='color: #000000'>);
+			</span><span style='color: #000080'>exit</span><span style='color: #000000'>(</span><span style='color: #0000ff'>1</span><span style='color: #000000'>);
+		}
+		iter=iter+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		tI[</span><span style='color: #0000ff'>3</span><span style='color: #000000'>] = l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		tF[</span><span style='color: #0000ff'>7</span><span style='color: #000000'>] = d[tI[</span><span style='color: #0000ff'>3</span><span style='color: #000000'>]]-d[l];
+		tF[</span><span style='color: #0000ff'>8</span><span style='color: #000000'>] = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>*e[l];
+                g=(tF[</span><span style='color: #0000ff'>7</span><span style='color: #000000'>])/(tF[</span><span style='color: #0000ff'>8</span><span style='color: #000000'>]);  </span><span style='color: #808080'><i>//Form shift.
+</i></span><span style='color: #000000'>		
+		</span><span style='color: #808080'><i>/*Substituicao do pythag
+		* r=pythag(g,1.0);
+		*/
+</i></span><span style='color: #000000'>		absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(</span><span style='color: #800080'>1.0</span><span style='color: #000000'>);
+		<b>if</b>(absa &gt; absb){
+			tF[</span><span style='color: #0000ff'>9</span><span style='color: #000000'>] = (absb/absa);
+			<b>if</b>(tF[</span><span style='color: #0000ff'>9</span><span style='color: #000000'>] == </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ){ tF[</span><span style='color: #0000ff'>10</span><span style='color: #000000'>] = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ tF[</span><span style='color: #0000ff'>10</span><span style='color: #000000'>] = tF[</span><span style='color: #0000ff'>9</span><span style='color: #000000'>]*tF[</span><span style='color: #0000ff'>9</span><span style='color: #000000'>]; }
+			tF[</span><span style='color: #0000ff'>11</span><span style='color: #000000'>] = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>+ tF[</span><span style='color: #0000ff'>10</span><span style='color: #000000'>];
+			tF[</span><span style='color: #0000ff'>12</span><span style='color: #000000'>] = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(tF[</span><span style='color: #0000ff'>11</span><span style='color: #000000'>]);
+			r = absa * tF[</span><span style='color: #0000ff'>12</span><span style='color: #000000'>];
+		}
+		<b>else</b>{
+			tF[</span><span style='color: #0000ff'>13</span><span style='color: #000000'>] = (absa/absb);
+			<b>if</b>(tF[</span><span style='color: #0000ff'>13</span><span style='color: #000000'>]==</span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ tF[</span><span style='color: #0000ff'>14</span><span style='color: #000000'>]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ tF[</span><span style='color: #0000ff'>14</span><span style='color: #000000'>]=tF[</span><span style='color: #0000ff'>13</span><span style='color: #000000'>]*tF[</span><span style='color: #0000ff'>13</span><span style='color: #000000'>]; }
+			tF[</span><span style='color: #0000ff'>15</span><span style='color: #000000'>] = </span><span style='color: #800080'>1.0</span><span style='color: #000000'>+tF[</span><span style='color: #0000ff'>14</span><span style='color: #000000'>];
+			tF[</span><span style='color: #0000ff'>16</span><span style='color: #000000'>] = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(tF[</span><span style='color: #0000ff'>15</span><span style='color: #000000'>]);
+			<b>if</b>(absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ r = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ r = absb*tF[</span><span style='color: #0000ff'>16</span><span style='color: #000000'>];  }
+		}
+		</span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>                <b>if</b>( g &gt;= </span><span style='color: #800080'>0.0</span><span style='color: #000000'> ){ tF[</span><span style='color: #0000ff'>17</span><span style='color: #000000'>] = </span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r); }
+		<b>else</b>{  tF[</span><span style='color: #0000ff'>17</span><span style='color: #000000'>] = -</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(r); }
+		tF[</span><span style='color: #0000ff'>18</span><span style='color: #000000'>] = g + tF[</span><span style='color: #0000ff'>17</span><span style='color: #000000'>];
+		tF[</span><span style='color: #0000ff'>19</span><span style='color: #000000'>] = e[l]/tF[</span><span style='color: #0000ff'>18</span><span style='color: #000000'>];
+		tF[</span><span style='color: #0000ff'>20</span><span style='color: #000000'>] = tF[</span><span style='color: #0000ff'>19</span><span style='color: #000000'>] - d[l];
+		g = d[m] + tF[</span><span style='color: #0000ff'>20</span><span style='color: #000000'>];
+		c=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+		s=</span><span style='color: #800080'>1.0</span><span style='color: #000000'>;
+                p=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                </span><span style='color: #808080'><i>/*FOR 4:for (i=m-1;i&gt;=l;i--) */
+</i></span><span style='color: #000000'>		i=m-</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		LABELstartOFfor4:
+		<b>if</b>(i&gt;=l){
+                    </span><span style='color: #808080'><i>/*A plane rotation as in the original QL, followed by Givens rotations to restore tridiagonal form. */
+</i></span><span style='color: #000000'>                    f=s*e[i];
+                    b=c*e[i];
+		
+		    </span><span style='color: #808080'><i>/*Substituicao do pythag
+		    * r=pythag(f,g);
+		    */
+</i></span><span style='color: #000000'>		    absa=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(f);
+		    absb=</span><span style='color: #000080'>fabs</span><span style='color: #000000'>(g);
+		    <b>if</b> (absa &gt; absb) {
+		    	tF[</span><span style='color: #0000ff'>21</span><span style='color: #000000'>] = (absb/absa);
+			<b>if</b>(tF[</span><span style='color: #0000ff'>21</span><span style='color: #000000'>] == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>){ tF[</span><span style='color: #0000ff'>22</span><span style='color: #000000'>]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>; }
+			<b>else</b>{ tF[</span><span style='color: #0000ff'>22</span><span style='color: #000000'>] = tF[</span><span style='color: #0000ff'>21</span><span style='color: #000000'>]*tF[</span><span style='color: #0000ff'>21</span><span style='color: #000000'>]; }
+			tF[</span><span style='color: #0000ff'>23</span><span style='color: #000000'>] = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tF[</span><span style='color: #0000ff'>22</span><span style='color: #000000'>];
+			tF[</span><span style='color: #0000ff'>24</span><span style='color: #000000'>] = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>( tF[</span><span style='color: #0000ff'>23</span><span style='color: #000000'>] );
+		    	r = absa*tF[</span><span style='color: #0000ff'>24</span><span style='color: #000000'>];
+		    }
+		    <b>else</b> {
+		    	tF[</span><span style='color: #0000ff'>25</span><span style='color: #000000'>] = (absa/absb);
+			<b>if</b>(tF[</span><span style='color: #0000ff'>25</span><span style='color: #000000'>] == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) tF[</span><span style='color: #0000ff'>26</span><span style='color: #000000'>] = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+			<b>else</b> tF[</span><span style='color: #0000ff'>26</span><span style='color: #000000'>] = tF[</span><span style='color: #0000ff'>25</span><span style='color: #000000'>]*tF[</span><span style='color: #0000ff'>25</span><span style='color: #000000'>];
+			tF[</span><span style='color: #0000ff'>27</span><span style='color: #000000'>] = </span><span style='color: #800080'>1.0</span><span style='color: #000000'> + tF[</span><span style='color: #0000ff'>26</span><span style='color: #000000'>];
+			tF[</span><span style='color: #0000ff'>28</span><span style='color: #000000'>] = </span><span style='color: #000080'>sqrt</span><span style='color: #000000'>(tF[</span><span style='color: #0000ff'>27</span><span style='color: #000000'>]);
+			<b>if</b>(absb == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) r = </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+			<b>else</b> r = absb*tF[</span><span style='color: #0000ff'>28</span><span style='color: #000000'>];
+		    }
+		    </span><span style='color: #808080'><i>/*Fim: Substituicao do pythag*/
+</i></span><span style='color: #000000'>                    
+		    tI[</span><span style='color: #0000ff'>4</span><span style='color: #000000'>] = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    e[tI[</span><span style='color: #0000ff'>4</span><span style='color: #000000'>]]= r; </span><span style='color: #808080'><i>//(r=pythag(f,g));
+</i></span><span style='color: #000000'>                    <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>) { </span><span style='color: #808080'><i>//Recover from underflow.
+</i></span><span style='color: #000000'>		    	tI[</span><span style='color: #0000ff'>5</span><span style='color: #000000'>] = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+                        d[tI[</span><span style='color: #0000ff'>5</span><span style='color: #000000'>]] = d[tI[</span><span style='color: #0000ff'>5</span><span style='color: #000000'>]] - p;
+                        e[m]=</span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+                        <b>goto</b> LABELendOFfor4;</span><span style='color: #808080'><i>/*break;*/
+</i></span><span style='color: #000000'>                    }
+                    s=f/r;
+                    c=g/r;
+		    tI[</span><span style='color: #0000ff'>6</span><span style='color: #000000'>] = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+                    g=d[tI[</span><span style='color: #0000ff'>6</span><span style='color: #000000'>]]-p;
+		    tF[</span><span style='color: #0000ff'>29</span><span style='color: #000000'>] = d[i]-g;
+		    tF[</span><span style='color: #0000ff'>30</span><span style='color: #000000'>] = tF[</span><span style='color: #0000ff'>29</span><span style='color: #000000'>]*s;
+		    tF[</span><span style='color: #0000ff'>31</span><span style='color: #000000'>] = c*b;
+		    tF[</span><span style='color: #0000ff'>32</span><span style='color: #000000'>] = </span><span style='color: #800080'>2.0</span><span style='color: #000000'>*tF[</span><span style='color: #0000ff'>31</span><span style='color: #000000'>]; 
+                    r= tF[</span><span style='color: #0000ff'>30</span><span style='color: #000000'>] + tF[</span><span style='color: #0000ff'>32</span><span style='color: #000000'>];
+		    
+		    p=s*r;
+		    tI[</span><span style='color: #0000ff'>7</span><span style='color: #000000'>] = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+                    d[tI[</span><span style='color: #0000ff'>7</span><span style='color: #000000'>]]=g+p;
+		    tF[</span><span style='color: #0000ff'>33</span><span style='color: #000000'>] = c*r;
+                    g = tF[</span><span style='color: #0000ff'>33</span><span style='color: #000000'>]-b;
+                    </span><span style='color: #808080'><i>/* Next loop can be omitted if eigenvectors not wanted*/
+</i></span><span style='color: #000000'>                    </span><span style='color: #808080'><i>/*FOR 5: for (k=1;k&lt;=n;k++) */
+</i></span><span style='color: #000000'>		    k=</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    LABELstartOFfor5:
+		    <b>if</b>(k&lt;=n){ </span><span style='color: #808080'><i>//Form eigenvectors.
+</i></span><span style='color: #000000'>		    	tI[</span><span style='color: #0000ff'>8</span><span style='color: #000000'>] = i+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+                        f=z[k][tI[</span><span style='color: #0000ff'>8</span><span style='color: #000000'>]];
+			tF[</span><span style='color: #0000ff'>34</span><span style='color: #000000'>] = s*z[k][i];
+			tF[</span><span style='color: #0000ff'>35</span><span style='color: #000000'>] = c*f;
+                        z[k][tI[</span><span style='color: #0000ff'>8</span><span style='color: #000000'>]] = tF[</span><span style='color: #0000ff'>34</span><span style='color: #000000'>]+tF[</span><span style='color: #0000ff'>35</span><span style='color: #000000'>];
+                        tF[</span><span style='color: #0000ff'>36</span><span style='color: #000000'>] = c*z[k][i];
+			tF[</span><span style='color: #0000ff'>37</span><span style='color: #000000'>] = s*f;
+			z[k][i]= tF[</span><span style='color: #0000ff'>36</span><span style='color: #000000'>] - tF[</span><span style='color: #0000ff'>37</span><span style='color: #000000'>];
+			k=k+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+			<b>goto</b> LABELstartOFfor5;
+                    }
+		    i = i - </span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+		    <b>goto</b> LABELstartOFfor4;
+                } LABELendOFfor4:
+                <b>if</b> (r == </span><span style='color: #800080'>0.0</span><span style='color: #000000'>)
+		  <b>if</b>(i &gt;= l) <b>goto</b> LABELstartOFdowhile;</span><span style='color: #808080'><i>/*continue;*/
+</i></span><span style='color: #000000'>                d[l] = d[l] - p;
+                e[l]= g;
+                e[m]= </span><span style='color: #800080'>0.0</span><span style='color: #000000'>;
+            }
+        </span><span style='color: #808080'><i>/*} while (m != l);*/
+</i></span><span style='color: #000000'>	<b>if</b>(m != l){
+	  <b>goto</b> LABELstartOFdowhile;
+	}
+	l = l+</span><span style='color: #0000ff'>1</span><span style='color: #000000'>;
+	<b>goto</b> LABELstartOFfor2;
+    }
+}
+
+
+</span></pre></body></html>
