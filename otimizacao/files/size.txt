@@ -1,0 +1,17 @@
+tyago@tux:~/public_html/SB_3$ size *.e
+   text    data     bss     dec     hex filename
+   1304     266       0    1570     622 assembly.e
+   1172     266       0    1438     59e otimo1.e
+   1120     266       0    1386     56a otimo2.e
+    988     266       0    1254     4e6 otimo3.e
+    972     270       0    1242     4da otimo4.e
+    960     270       0    1230     4ce otimo5.e
+    956     270       0    1226     4ca otimo6.e
+    928     270       0    1198     4ae otimo7.e
+    904     270       0    1174     496 otimo8.e
+    888     270       0    1158     486 otimo9.e
+    828     270       0    1098     44a otimo10.e
+    832     222       0    1054     41e otimo11.e
+    828     222       0    1050     41a otimo12.e
+    836     226       0    1062     426 otimo13.e
+    824     226       0    1050     41a otimo14.e

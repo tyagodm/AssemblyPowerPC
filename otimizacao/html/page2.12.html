@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Usando fsel(descartada)</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page2.11.html">&lt;</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.13.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr align="center" width="526">
+<p><span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big><big><big><br>
+  Terceira avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+  <small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado na segunda 
+  avalia&ccedil;&atilde;o.</small></small><br>
+  </big></big></big></span><span style="font-weight: bold;"></span><br>
+  <span style="font-weight: bold;">[</span><span
+ style="font-weight: bold;">Usando fsel(descartada)</span><span style="font-weight: bold;">]</span> 
+  - [<a href="otimo12.html">otimo12.html</a>]<br>
+</p>
+<pre>
+
+ <i>Trocar</i>:
+   fcmpu 3,25,6
+    fabs 31,27			#    tFloat0 = fabs(r); 
+   bge 3,LABELendOFif_7		#  if( g >= 0.0 ){ goto LABELendOFif_7; }
+    fnabs 31,27			#    tFloat0 = -fabs(r); 
+   LABELendOFif_7:		#   LABELendOFif_7:
+
+ <i>Por</i>:
+  fabs  31,27		# tFloat0 =  fabs(r); 
+  fnabs 30,27		# tFloat1 = -fabs(r); 
+   ...
+  fsel  31,25,31,30	#  if( g >= 0.0 ){ ... }
+ Apresentou preuízo, logo descartei esta versão;
+</pre>
+<blockquote>
+<div style="margin-left: 40px;">+ Sa&iacute;da:<br>
+    <span style="font-family: monospace;"><small><font face="Times New Roman, Times, serif" size="2">[D] 
+    3e c7 72 4e; c0 16 ec 88; 40 6b 38 61; 41 04 b1 77;</font></small><font face="Times New Roman, Times, serif" size="2"><br>
+    <br>
+    <small>[E] 29 80 00 00; 00 00 00 00; 31 00 00 00; 00 00 00 00; </small><br>
+    <br>
+    <small>[Z]</small><br>
+    <small> bf 46 ea 79; 3e b2 be 3f; 3f 03 c1 49; 3d c7 7d ce;<br>
+    3e 72 db dc; bf 16 10 2c; 3f 30 3e 3d; 3e b5 de 97;<br>
+    3e c8 09 1b; 3f 1e 6b 89; 3d 29 59 6c; 3f 2e 22 ef;<br>
+    be dd 9e 3a; be c7 53 d3; bf 02 65 3a; 3f 22 3d 3a;<br>
+    </small></font></span></div>
+  <div style="margin-left: 80px;"><font face="Times New Roman, Times, serif" size="2"><small></small></font><small><br>
+    </small></div>
+</blockquote>
+<div style="margin-left: 40px;"><br>
+  <small><big>+ Estado:</big></small> clique <a href="../log/otimo12.log">aqui</a>.</div>
+<p>&nbsp; </p>
+</body>
+</html>

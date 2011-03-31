@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Re-especificando a entrada</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page2.1.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.3.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Terceira
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado
+na segunda avalia&ccedil;&atilde;o.</small></small><br>
+</big></big></big></span><span style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;">[</span><span
+ style="font-weight: bold;">Re-especificando a entrada]</span><span
+ style="font-weight: bold;"></span> - [<a href="otimo2.html">otimo2.html</a>]<br>
+<span style="font-family: monospace;"><big><big><big><small><small>&nbsp;
+</small></small></big></big></big></span><br>
+&nbsp; <span style="font-family: mon;">Observando o c&oacute;digo
+percebi que o vetor de entrada/sa&iacute;da e[] </span>sofre uma
+mudan&ccedil;a no in&iacute;cio <br>
+da fun&ccedil;&atilde;o atrav&eacute;s da estrutura:<br>
+<pre style="margin-left: 40px;"><span style="color: rgb(0, 0, 0);">    <b>for</b> (i=</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">;i&lt;=n;i++) e[i-</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">]=e[i];   </span><span
+ style="color: rgb(128, 128, 128);"><i>// Convenient to renumber the elements of e.<br></i></span><span
+ style="color: rgb(0, 0, 0);">    e[n]=</span><span
+ style="color: rgb(128, 0, 128);">0.0</span><span
+ style="color: rgb(0, 0, 0);">;</span></pre>
+&nbsp; Isto pode ser evitado simplemente alterando o pr&oacute;prio
+conjunto de entrada, evitando que precise <br>
+realizar esta a&ccedil;&atilde;o interna &agrave;&nbsp;
+fun&ccedil;&atilde;o;<br>
+&nbsp;<br>
+&nbsp; Ou seja, trocamos: <br>
+<table
+ style="text-align: left; margin-left: auto; margin-right: auto; width: 596px; height: 42px;"
+ border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">
+      <pre><span style="color: rgb(0, 0, 0);">  arraye:<br>	<b>.float</b> </span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">.0,</span><span
+ style="color: rgb(0, 0, 255);">1</span><span
+ style="color: rgb(0, 0, 0);">.0,</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">.0,</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">.0,</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">.0</span></pre>
+      </td>
+      <td style="vertical-align: top; text-align: left;">por<br>
+      </td>
+      <td style="vertical-align: top;">
+      <pre><span style="color: rgb(0, 0, 0);">  arraye:<br>	<b>.float</b> </span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">.0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">2</span><span
+ style="color: rgb(0, 0, 0);">.0,</span><span
+ style="color: rgb(0, 0, 255);">3</span><span
+ style="color: rgb(0, 0, 0);">.0,</span><span
+ style="color: rgb(0, 0, 255);">4</span><span
+ style="color: rgb(0, 0, 0);">.0</span><span
+ style="color: rgb(0, 0, 0);">,</span><span
+ style="color: rgb(0, 0, 255);">0</span><span
+ style="color: rgb(0, 0, 0);">.0</span></pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<span style="font-family: monospace;"><big>Como resultado temos o
+c&oacute;digo [<a href="otimo2.html">otimo2.html</a>].<br>
+<br>
+</big></span>
+<div style="margin-left: 40px;"><span style="font-family: monospace;"><big>+
+As sa&iacute;das:</big></span><br>
+<span style="font-family: monospace;"></span><br>
+<span style="font-family: monospace;"></span></div>
+<div style="margin-left: 80px;"><span style="font-family: monospace;"><big>[D]</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;00 00 00 00; 3e c7 72
+4e; c0 16 ec 88; 40 6b 38 61; 41 04 b1 77;</big></span><br>
+<span style="font-family: monospace;"><big>[E]</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;00 00 00 00; 29 80 00
+00; 00 00 00 00; 31 00 00 00; 00 00 00 00;</big></span><br>
+<span style="font-family: monospace;"><big>[Z]</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;3f 80 00 00; 00 00 00
+00; 00 00 00 00; 00 00 00 00; 00 00 00 00;</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;00 00 00 00; bf 46 ea
+79; 3e b2 be 3f; 3f 03 c1 49; 3d c7 7d ce;</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;00 00 00 00; 3e 72 db
+dc; bf 16 10 2c; 3f 30 3e 3d; 3e b5 de 97;</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;00 00 00 00; 3e c8 09
+1b; 3f 1e 6b 89; 3d 29 59 6c; 3f 2e 22 ef;</big></span><br>
+<span style="font-family: monospace;"><big>&nbsp;00 00 00 00; be dd 9e
+3a; be c7 53 d3; bf 02 65 3a; 3f 22 3d 3a;</big></span><br>
+<span style="font-family: monospace;"></span></div>
+<div style="margin-left: 40px;"><span style="font-family: monospace;"></span><br>
+<span style="font-family: monospace;"><big>+ Status:</big></span><br>
+<span style="font-family: monospace;"></span><br>
+<span style="font-family: monospace;"></span></div>
+<div style="margin-left: 80px;">
+<div style="margin-left: 40px;"><span
+ style="font-family: monospace; color: rgb(102, 102, 102);"><big>2c2</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 1,778 Add Immediate instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 1,771 Add Immediate instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>4,5c4,5</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 1,513 Branch instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 1,735 Branch Conditional instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 1,510 Branch instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 1,731 Branch Conditional instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>7c7</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 193 Compare instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 189 Compare instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>17c17</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 264 Floating Subtract Single
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 263 Floating Subtract Single
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>19c19</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 396 Load Floating-Point Single
+Indexed instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 393 Load Floating-Point Single
+Indexed instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>21c21</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 648 Multiply Low Immediate
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 641 Multiply Low Immediate
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>25c25</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 204 Store Floating-Point Single
+Indexed instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 200 Store Floating-Point Single
+Indexed instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>29,30c29,30</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed <span style="color: rgb(51, 51, 255);">41,135</span>
+cycles.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed 32,946 stalls waiting for data.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed <span style="color: rgb(255, 0, 0);">41,101</span>
+cycles.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed 32,927 stalls waiting for data.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>32,36c32,36</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 176 times a write-back slot was
+unavailable.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 1,547 branches.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 1,702 conditional branches fell through.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 1,547 successful branch predictions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 188 unsuccessful branch predictions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 175 times a write-back slot was
+unavailable.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 1,544 branches.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 1,698 conditional branches fell through.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 1,544 successful branch predictions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 187 unsuccessful branch predictions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>38c38</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 212 branch if the condition is TRUE
+conditional branches.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 208 branch if the condition is TRUE
+conditional branches.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>40c40</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 3,434 1st single cycle integer functional unit
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 3,423 1st single cycle integer functional unit
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>42,52c42,52</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 648 multiple cycle integer functional
+unit instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 5,509 floating point functional unit instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 742 load/store functional unit
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp; 3,249 branch functional unit instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed 13,606 instructions that were accounted for in timing
+info.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 511 reads&nbsp; (0 1-byte, 0 2-byte,
+511 4-byte, 0 8-byte).</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 233 writes (0 1-byte, 0 2-byte, 233
+4-byte, 0 8-byte).</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 511 unaligned reads.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 233 unaligned writes.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 263 icache misses.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+CPU #1 executed 13,608 instructions in total.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 641 multiple cycle integer functional
+unit instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 5,508 floating point functional unit instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 735 load/store functional unit
+instructions.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp; 3,242 branch functional unit instructions.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed 13,573 instructions that were accounted for in timing
+info.</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 508 reads&nbsp; (0 1-byte, 0 2-byte,
+508 4-byte, 0 8-byte).</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 229 writes (0 1-byte, 0 2-byte, 229
+4-byte, 0 8-byte).</big></span><br style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 508 unaligned reads.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 229 unaligned writes.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed&nbsp;&nbsp;&nbsp; 250 icache misses.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+CPU #1 executed 13,575 instructions in total.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>54c54</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&lt;
+Simulator speed was 4,537,513 instructions/second.</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>---</big></span><br
+ style="color: rgb(102, 102, 102);">
+<span style="font-family: monospace; color: rgb(102, 102, 102);"><big>&gt;
+Simulator speed was 4,526,509 instructions/second.</big></span><br>
+</div>
+<span style="font-family: monospace;"></span></div>
+<div style="margin-left: 40px;"><span style="font-family: monospace;"></span><br>
+<span style="font-family: monospace;"></span></div>
+<span style="font-family: monospace;"><big><br>
+</big></span><span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big></big></span>
+</body>
+</html>

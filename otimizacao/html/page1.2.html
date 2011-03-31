@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Analisando as sa&iacute;das e o estado do execut&aacute;vel</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page1.1.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.1.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Terceira
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado
+na segunda avalia&ccedil;&atilde;o.</small></small><br>
+</big></big></big></span><span style="font-weight: bold;"><br>
+</span><span style="font-weight: bold;">[</span><span
+ style="font-weight: bold;">Analisando </span><span
+ style="font-weight: bold;">as sa&iacute;das </span><span
+ style="font-weight: bold;">e </span><span style="font-weight: bold;">o
+estado </span><span style="font-weight: bold;"> do execut&aacute;ve</span><a
+ href="page1.html"><span style="font-weight: bold;"></span></a><span
+ style="font-weight: bold;">l]<br>
+</span> <br>
+&nbsp;Como primeiro passo, neste processo de
+implementa&ccedil;&atilde;o, iremos executar a
+"implementa&ccedil;&atilde;o base" <br>
+e observar as suas sa&iacute;das em conjunto com a
+observa&ccedil;&atilde;o do tempo da m&aacute;quina.<br>
+<br>
+<br>
++ Observando as sa&iacute;das (atrav&eacute;s de "ppcemul -d
+assembly.exe"):<br>
+<div style="margin-left: 40px;"><br>
+- Executo o programa e atrav&eacute;s do conte&uacute;do do registrador
+25 ( endere&ccedil;o do array d[] ) <br>
+identifico a regi&atilde;o de mem&oacute;ria onde est&atilde;o todos os
+dados e os obtenho.<br>
+<br>
+<div style="margin-left: 40px;">[D]&nbsp;&nbsp; 00000000 / 3ec7724e /
+c016ec88 / 406b3861 / 4104b177<br>
+<br>
+[E]&nbsp;&nbsp; 00000000 / 29800000 / 00000000 / 31000000 / 00000000<br>
+<br>
+[Z]<br>
+&nbsp;[z0] 3f800000 / 00000000 / 00000000 / 00000000 / 00000000 <br>
+</div>
+</div>
+<div style="margin-left: 80px;">&nbsp;[z1] 00000000 / bf46ea79 /
+3eb2be3f / 3f03c149 / 3dc77dce<br>
+&nbsp;[z2] 00000000 / 3e72dbdc / bf16102c / 3f303e3d / 3eb5de97<br>
+&nbsp;[z3] 00000000 / 3ec8091b / 3f1e6b89 / 3d29596c / 3f2e22ef <br>
+&nbsp;[z4] 00000000 / bedd9e3a / bec753d3 / bf02653a / 3f223d3a <br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><br>
+<br>
+</div>
+</div>
++ Observando a execu&ccedil;&atilde;o do programa atrav&eacute;s do uso
+do PSIM(<a href="http://sourceware.org/psim/manual/">http://sourceware.org/psim/manual/</a>)
+em <br>
+conjunto com a passagem da diretiva -I (psim3 -I assembly.exe) posso
+ter informa&ccedil;&otilde;es quanto ao <br>
+estado(tempo) de execu&ccedil;&atilde;o do programa:<br>
+<br>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><span style="color: rgb(102, 102, 102);">CPU
+#1 executed&nbsp;&nbsp;&nbsp;&nbsp; 48 Add instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,778
+Add Immediate instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 108 Add Immediate Shifted instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,513
+Branch instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,735
+Branch Conditional instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 Branch Conditional to Link
+Register instruction.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 193 Compare instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,408
+Compare Immediate instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 129 Floating Absolute Value instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,582
+Floating Add Single instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 134 Floating Compare Unordered instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,456
+Floating Divide Single instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp; 32 Floating Move Register instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 Floating Multiply instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,892
+Floating Multiply Single instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 Floating Negative Absolute
+Value instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 264 Floating Subtract Single instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 132 Load Floating-Point Single instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 396 Load Floating-Point Single Indexed
+instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 Load Word and Zero
+instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp; 80 Load Word and Zero Indexed
+instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 648 Multiply Low Immediate instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp; 12 OR instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 108 OR Immediate instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp; 24 Store Floating-Point Single
+instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 204 Store Floating-Point Single Indexed
+instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 Store Word instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 System Call instruction.</span><br
+ style="color: rgb(102, 102, 102);">
+<br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed 41,378 cycles.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed 32,998 stalls
+waiting for data.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 stall waiting for
+serialization.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 252 times a write-back slot was unavailable.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,547
+branches.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,702
+conditional branches fell through.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,547
+successful branch predictions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 188 unsuccessful branch predictions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 1,523
+branch if the condition is FALSE conditional branches.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 212 branch if the condition is TRUE
+conditional branches.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 branch always conditional
+branch.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 3,632
+1st single cycle integer functional unit instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp;&nbsp; 24 2nd single cycle integer functional
+unit instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 648 multiple cycle integer functional unit
+instructions.</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 5,497
+floating point functional unit instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 846 load/store functional unit instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed&nbsp; 3,249
+branch functional unit instructions.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed 13,896
+instructions that were accounted for in timing info.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 613 reads&nbsp; (0 1-byte, 0 2-byte, 613
+4-byte, 0 8-byte).</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 233 writes (0 1-byte, 0 2-byte, 233 4-byte,
+0 8-byte).</span><br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 613 unaligned reads.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 233 unaligned writes.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1
+executed&nbsp;&nbsp;&nbsp; 297 icache misses.</span><br
+ style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">CPU #1 executed 13,896
+instructions in total.</span><br style="color: rgb(102, 102, 102);">
+<br style="color: rgb(102, 102, 102);">
+<span style="color: rgb(102, 102, 102);">Simulator speed was 4,633,545
+instructions/second.<br>
+</span></div>
+</div>
+<br>
+<br>
+Com estas informa&ccedil;&otilde;es tenho uma base de
+compara&ccedil;&atilde;o para as diversas fases do processo de
+otimiza&ccedil;&atilde;o.<br>
+<br>
+<br>
+<br>
+</body>
+</html>

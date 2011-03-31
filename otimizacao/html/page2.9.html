@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Otimiza&ccedil;&atilde;o do continue anterior ao fim do do_while()</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page2.8.html">&lt;</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.10.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big><big><big><br>
+Terceira
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado
+na segunda avalia&ccedil;&atilde;o.</small></small><br>
+</big></big></big></span><span style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;">[</span><span
+ style="font-weight: bold;">Trecho do continue anterior ao fim do do_while()</span> 
+<span style="font-weight: bold;">]</span> - [<a href="otimo9.html">otimo9.html</a>]<br>
+<pre>   ...
+ if(r == 0.0 && i >= l) continue;
+ d[l] -= p;
+ e[l]=g;
+ e[m]=0.0;
+   ...
+</pre>
+<div style="margin-left: 40px;">
+  <blockquote>
+    <div style="margin-left: 40px;">+ Sa&iacute;da:<br>
+      <span style="font-family: monospace;"><small><font face="Times New Roman, Times, serif" size="2">[D] 
+      00 00 00 00; 3e c7 72 4e; c0 16 ec 88; 40 6b 38 61; 41 04 b1 77;</font></small><font face="Times New Roman, Times, serif" size="2"><br>
+      <br>
+      <small>[E] 00 00 00 00; 29 80 00 00; 00 00 00 00; 31 00 00 00; 00 00 00 
+      00;</small><br>
+      <br>
+      <small>[Z]</small><br>
+      <small>&nbsp;3f 80 00 00; 00 00 00 00; 00 00 00 00; 00 00 00 00; 00 00 00 
+      00;</small><br>
+      <small>&nbsp;00 00 00 00; bf 46 ea 79;&nbsp; 3e b2 be 3f;&nbsp; 3f 03 c1 
+      49;&nbsp; 3d c7 7d ce;</small><br>
+      <small>&nbsp;00 00 00 00; 3e 72 db dc; bf 16 10 2c; 3f 30 3e 3d; 3e b5 de 
+      97;</small><br>
+      <small>&nbsp;00 00 00 00; 3e c8 09 1b; 3f 1e 6b 89; 3d 29 59 6c; 3f 2e 22 
+      ef;</small><br>
+      <small>&nbsp;00 00 00 00; be dd 9e 3a; be c7 53 d3; bf 02 65 3a; 3f 22 3d 
+      3a</small></font></span></div>
+    <div style="margin-left: 80px;"><font face="Times New Roman, Times, serif" size="2"><small></small></font><small><br>
+      </small></div>
+  </blockquote>
+  <div style="margin-left: 40px;"><br>
+    <small><big>+ Estado:</big></small> clique <a href="../log/otimo9.log">aqui</a>.<br>
+  </div>
+</div>
+</body>
+</html>

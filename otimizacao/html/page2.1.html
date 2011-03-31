@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Um registrador para cada constante</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page1.2.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.2.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+        Aluno: Tyago Medeiros </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"><br>
+<br>
+</span><span style="font-family: monospace;"><big><big><big>Terceira
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado
+na segunda avalia&ccedil;&atilde;o.</small></small><br>
+</big></big></big></span><span style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;">[Um registrador para cada constante]</span> - 
+[<a href="otimo1.html">otimo1.html</a>]<br>
+<span style="font-family: monospace;"><big><big><big><small><small>&nbsp;
+</small></small></big></big></big></span><br>
+&nbsp; <span style="font-family: monospace;"><big>Nesta etapa resolvi
+realizar
+uma modifica&ccedil;&atilde;o para alocar e manter os registradores
+fr5, fr7 e
+fr8 para as <br>
+constantes 0.5, 1.0 e 2.0, respectivamente. </big></span><span
+ style="font-family: monospace;"><big>Logo no in&iacute;cio da chamada
+&agrave; fun&ccedil;&atilde;o tqli &eacute; realizada uma carga e esses
+<br>
+registradores s&atilde;o usados apenas para consulta, ao inv&eacute;s
+de diversas cargas durante a execu&ccedil;&atilde;o.</big></span><span
+ style="font-family: monospace;"><big> <br>
+<span style="font-style: italic;">Tamb&eacute;m retirei a carga das
+posi&ccedil;&otilde;es de mem&oacute;ria dos vetores z[i] que tinha
+colocado anteriormente para depura&ccedil;&atilde;o</span>. <br>
+<br>
+Como resultado temos o c&oacute;digo [<a href="otimo1.html">otimo1.html</a>].<br>
+<br>
+</big></span>
+<div style="margin-left: 40px;"><span style="font-family: monospace;"><big>+
+Ao executar<span style="font-family: monospace;"> o programa com o
+ppcemul obtive como "sa&iacute;da" os valores:</span></big></span><br>
+<span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"></span></div>
+<div style="margin-left: 80px;"><span style="font-family: monospace;"></span>D
+{ 00 00 00 00 ; 3e c7 72 4e; c0 16 ec 88; 40 6b 38 61; 41 04 b1 77 }<br>
+<br>
+E { 00 00 00 00 ; 29 80 00 00; 00 00 00 00; 3100 00 00; 00 00 00 00 }<br>
+<br>
+Z {<br>
+&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 3f 80 00 00; 00 00 00 00; 00 00 00
+00; 00 00 00 00; 00 00 00 00;<br>
+</div>
+<div style="margin-left: 120px;">00 00 00 00; bf&nbsp; 46 ea 79; 3e b2
+be 3f;&nbsp; 3f 03 c1 49; 3d c7 7d ce;<br>
+00 00 00 00; 3e 72 db dc;&nbsp; bf 16 10 2c; 3f 30 3e 3d; 3e b5 de 97;<br>
+00 00 00 00; 3e c8 09 1b;&nbsp; 3f 1e 6b 89; 3d 29 59 6c;&nbsp; 3f 2e
+22 ef;<br>
+00 00 00 00; be dd 9e 3a; be c7 53 d3; bf 02 65 3a;&nbsp; 3f 22 3d 3a;<br>
+</div>
+<div style="margin-left: 80px;">}<br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><br>
+O resultado coincidiu com os valores esperados.</span></big></span><br>
+<span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"></span></big></span></div>
+<span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><br>
+<span style="font-family: mon;">+ Ao executar o programa com o psim e
+comparar com a implementa&ccedil;&atilde;o base, obtive como
+diferen&ccedil;as:<br>
+</span></span></big></span></div>
+<div style="margin-left: 80px;"><span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;"><br>
+&nbsp;Sendo a primeira linha o resultado da
+"implementa&ccedil;&atilde;o base"(representada por '&lt;') e a </span></span></big></span><br>
+<span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;">segunda
+linha o resultado desta nova vers&atilde;o</span></span></big></span><span
+ style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;">(representada
+por '&gt;')</span></span></big></span><span
+ style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;">;</span></span></big></span><br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;"></span></span></big></span></div>
+<span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;"><span
+ style="color: rgb(102, 102, 102);">3c3<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 108 Add Immediate Shifted
+instructions.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9 Add Immediate
+Shifted instructions.<br>
+13c13<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 32 Floating Move Register
+instructions.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 44 Floating Move Register
+instructions.<br>
+18c18<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 132 Load Floating-Point Single
+instructions.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 35 Load Floating-Point
+Single instructions.<br>
+20d19<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 Load Word and Zero
+instructions.<br>
+24c23<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 108 OR Immediate instructions.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9 OR Immediate
+instructions.<br>
+30,31c29,30<br>
+&lt; CPU #1 executed <span style="color: rgb(51, 51, 255);">41,378</span>
+cycles.<br>
+&lt; CPU #1 executed 32,998 stalls waiting for data.<br>
+---<br>
+&gt; CPU #1 executed <span style="color: rgb(255, 0, 0);">41,135</span>
+cycles.<br>
+&gt; CPU #1 executed 32,946 stalls waiting for data.<br>
+33c32<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 252 times a write-back slot was
+unavailable.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 176 times a write-back slot was
+unavailable.<br>
+41c40<br>
+&lt; CPU #1 executed&nbsp; 3,632 1st single cycle integer functional
+unit instructions.<br>
+---<br>
+&gt; CPU #1 executed&nbsp; 3,434 1st single cycle integer functional
+unit instructions.<br>
+44,45c43,44<br>
+&lt; CPU #1 executed&nbsp; 5,497 floating point functional unit
+instructions.<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 846 load/store functional unit
+instructions.<br>
+---<br>
+&gt; CPU #1 executed&nbsp; 5,509 floating point functional unit
+instructions.<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 742 load/store functional unit
+instructions.<br>
+47,48c46,47<br>
+&lt; CPU #1 executed 13,896 instructions that were accounted for in
+timing info.<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 613 reads&nbsp; (0 1-byte, 0
+2-byte, 613 4-byte, 0 8-byte).<br>
+---<br>
+&gt; CPU #1 executed 13,606 instructions that were accounted for in
+timing info.<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 511 reads&nbsp; (0 1-byte, 0
+2-byte, 511 4-byte, 0 8-byte).<br>
+50c49<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 613 unaligned reads.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 511 unaligned reads.<br>
+52,53c51,52<br>
+&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 297 icache misses.<br>
+&lt; CPU #1 executed 13,896 instructions in total.<br>
+---<br>
+&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 263 icache misses.<br>
+&gt; CPU #1 executed 13,608 instructions in total.<br>
+55c54<br>
+&lt; Simulator speed was 3,474,869 instructions/second.<br>
+---<br>
+&gt; Simulator speed was 4,537,513 instructions/second.</span><br>
+</span></span></big></span></div>
+</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<span style="font-family: monospace;"><big><span
+ style="font-family: monospace;"><span style="font-family: mon;"><br>
+</span></span></big></span><br>
+<br>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Mudando o sqrt</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page2.12.html">&lt;</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.14.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+        Aluno: Tyago Medeiros </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr align="center" width="526">
+<p><span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big><big><big><br>
+  Terceira avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+  <small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado na segunda 
+  avalia&ccedil;&atilde;o.</small></small><br>
+  </big></big></big></span><span style="font-weight: bold;"></span><br>
+  <span style="font-weight: bold;">[</span><span
+ style="font-weight: bold;">Mudando o sqrt</span><span style="font-weight: bold;">]</span> 
+  - [<a href="otimo13.html">otimo13.html</a>]<br>
+</p>
+<pre>
+ Durante o processo de otimiza&ccedil;&atilde;o (mais precisamente na etapa 6) 
+percebi que o sqrt era um ponto cr&iacute;tico e que se poderia ter um excelente 
+ganho diminuindo-se o número de iterações. Porém, mesmo dando certo, não havia 
+garantia de que ocorre-se o mesmo em outros casos, pois o algoritmo trabalha com 
+base em aproximações e quanto maior o número de iterações mais próximo se chega 
+do resultado real. Para garantir uma maior eficiência, modifiquei o algoritmo para 
+parar quando a curva realizada pela função de cálculo fosse insignificante.
+ Essa "insignificância" foi estabelecida através do uso de uma constante de erro, 
+que carreguei no fr9.
+
+A nova fun&ccedil;&atilde;o de c&aacute;lculo da raiz &eacute;:
+
+ #define ERRO 0.00001
+ float sqrt(float s)
+ {
+     float n = 0.5*(1.0 + s); //=0.5 + 0.5*s
+     float tmp;
+     do {
+        tmp = n;
+        n = 0.5*( n + (s/n) );
+     } while( fabs(n-tmp) > ERRO);
+     return n;
+ }
+
+ A sa&iacute;da apresentou diferen&ccedil;as no resultado, mas que s&atilde;o apenas 
+erros de aproxima&ccedil;&atilde;o. Veja a an&aacute;lise final dos resultados. 
+</pre>
+<blockquote>
+  <div style="margin-left: 40px;">
+    <p>+ Sa&iacute;da:<br>
+      <font face="Times New Roman, Times, serif" size="3"> 
+      <span style="font-family: monospace;">
+      <small> [D] 3e c8 d4 8e c0 16 e3 52 40 6b 6e 1d 41 04 96 a8</small><br>
+      <br>
+      <small> [E] 2d 95 e0 00 b2 80 00 00 31 80 00 00 00 00 00 00 </small><br>
+      <br>
+      <small>[Z]</small><br>
+      <small> bf 46 a9 e8 3e b3 23 f9 3f 03 74 d7 3d c7 a1 38<br>
+      3e 71 5e 8d bf 16 2a d3 3f 30 38 b0 3e b5 e7 00<br>
+      3e c8 52 24 3f 1e 01 f5 3d 2a 7f 97 3f 2d e4 cb<br>
+      be dd 3c d3 be c6 4f c4 bf 02 56 36 3f 22 36 90<br>
+      </small></span></font></p>
+  </div>
+  <div style="margin-left: 80px;"><font face="Times New Roman, Times, serif" size="2"><small></small></font><small><br>
+    </small></div>
+</blockquote>
+<div style="margin-left: 40px;"><br>
+  <small><big>+ Estado:</big></small> clique <a href="../log/otimo13.log">aqui</a>.</div>
+<pre>&nbsp;
+
+</pre>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>otimo13.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="generator" content="SynEdit HTML exporter" />
+<style type="text/css">
+<!--
+body { color: #000000; background-color: #FFFFFF; }
+.cpp1-assembler { color: #0000FF; }
+.cpp1-character { color: #FF00FF; }
+.cpp1-comment { color: #0A246A; font-style: italic; }
+.cpp1-float { color: #800080; }
+.cpp1-hexadecimal { color: #800080; }
+.cpp1-identifier { color: #000000; }
+.cpp1-illegalchar { color: #000000; }
+.cpp1-number { color: #800080; }
+.cpp1-octal { color: #800080; }
+.cpp1-preprocessor { color: #008000; }
+.cpp1-reservedword { color: #000000; font-weight: bold; }
+.cpp1-space { background-color: #FFFFFF; color: #000000; }
+.cpp1-string { color: #FF0000; }
+.cpp1-symbol { color: #000000; }
+-->
+</style>
+</head>
+<body>
+<pre>
+<code><span style="font: 10pt Courier New;"><span class="cpp1-symbol">.data
+</span><span class="cpp1-preprocessor">#mudando o sqrt
+
+</span><span class="cpp1-identifier">msg_nerror:
+ .string </span><span class="cpp1-string">&quot;\nNumerical Recipes run-time error...\nToo many iterations in tqli\n...now exiting to system...\n&quot;
+</span><span class="cpp1-identifier">len_nerror = . - msg_nerror
+  
+  arrayd: 
+	.</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">2.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">3.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">4.0
+</span><span class="cpp1-space">  arraye:
+	.</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">2.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">3.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">4.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0
+</span><span class="cpp1-space">  arrayz1:
+	.</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0
+</span><span class="cpp1-space">  arrayz2:
+	.</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0
+</span><span class="cpp1-space">  arrayz3:
+	.</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0
+</span><span class="cpp1-space">  arrayz4:
+	.</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">,</span><span class="cpp1-float">1.0
+</span><span class="cpp1-space">  arrayz:
+	.</span><span class="cpp1-reservedword">int</span><span class="cpp1-space"> arrayz1 - </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,arrayz2 - </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,arrayz3 - </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,arrayz4 - </span><span class="cpp1-number">4
+</span><span class="cpp1-space">  labelConstant:
+    .</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">0.5
+</span><span class="cpp1-space">    .</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">0.0
+</span><span class="cpp1-space">    .</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">1.0
+</span><span class="cpp1-space">    .</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">2.0
+</span><span class="cpp1-space">    .</span><span class="cpp1-reservedword">float</span><span class="cpp1-space"> </span><span class="cpp1-float">0.00001</span><span class="cpp1-space">	#constante de erro </span><span class="cpp1-reservedword">do</span><span class="cpp1-space"> sqrt
+
+.text
+	.global	_start
+
+
+</span><span class="cpp1-preprocessor">## Considerando que:
+##    ----[PARAMETROS]----
+##    r25 = ponteiro { float d[] }
+##    r24 = ponteiro { float e[] }
+##    r23 = { int n }
+##    r22 = ponteiro { float **z }
+##    fr5 = Constante 0.5
+##    fr6 = Constante 0.0
+##    fr7 = Constante 1.0
+##    fr8 = Constante 2.0
+##    fr9 = Constante de erro do sqrt
+##    ---[Registradores de Ponto flutuante alterados]---
+##    fr31,fr30,fr29,fr28,fr27,fr26,fr25,fr24,fr23,fr22,fr21,fr20,fr19,
+##    fr18,fr17,fr16,fr5,fr4,fr2,fr1
+##    ---[Registradores de Uso comum alterados]---
+##    r31,r30,r29,r28,r27,r26,
+##    r21,r20,r5,r1
+
+</span><span class="cpp1-identifier">tqli:
+</span><span class="cpp1-preprocessor">#For 2
+</span><span class="cpp1-space">    li </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">    # l=</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+   LABELstartOFfor2:
+    cmp </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">23
+</span><span class="cpp1-space">     li </span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-space"> 	#iter=</span><span class="cpp1-number">0</span><span class="cpp1-symbol">;
+    bgt </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFfor2  #  </span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(l&gt;n){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFfor2; }
+   LABELstartOFdowhile:
+    
+    mr </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-space">     #m=l;
+    subi </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">23</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space"> #tInt = n-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+  LABELstartOFfor3:	#LABELstartOFfor3:
+	addi </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">	#r1 = m+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+	slwi </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">	#r5 = m*</span><span class="cpp1-number">4
+</span><span class="cpp1-space">    cmp </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31
+</span><span class="cpp1-space">	slwi </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">	#r1 = (m+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)*</span><span class="cpp1-number">4
+</span><span class="cpp1-space">	lfsx </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space"> 	#tFloat0 = d[ m ];
+    bgt </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFfor3	#</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(m&gt;tInt){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFfor3; }
+	lfsx </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space"> 	#tFloat1 = d[ m+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ];
+	fabs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">	#tFloat0 = fabs(d[ m ]);
+	lfsx </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">	#tFloat2 = e[ m ];
+	fabs </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">	#tFloat1 = fabs(d[ m+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ]);
+	fabs </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-space">	#tFloat2 = fabs(e[ m ]);
+	fadds </span><span class="cpp1-number">23</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">  #dd = tFloat0 + tFloat1;
+	fadds </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">23</span><span class="cpp1-space">  #tFloat2 = fabs(e[ m ])+dd;
+	fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">23
+</span><span class="cpp1-space">	beq </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFfor3	#</span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> ( tFloat2 == dd ){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFfor3; }
+	 addi </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">	#m = m+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+    b LABELstartOFfor3	#</span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELstartOFfor3;
+  LABELendOFfor3: #LABELendOFfor3:
+    slwi </span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space">  cmp </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-space">	
+    add  </span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24
+</span><span class="cpp1-space">    add  </span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25
+</span><span class="cpp1-space">  beq </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFif_1	#</span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> ( m == l) { </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFif_1; }
+    fmr </span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-space">    	# c = </span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">;
+    lfs  </span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">21</span><span class="cpp1-symbol">) 	# d[ l ]
+  cmpi </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space">    lfs  </span><span class="cpp1-number">17</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-symbol">(</span><span class="cpp1-number">21</span><span class="cpp1-symbol">) 	# d[ l+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ]		
+    addi </span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">	# iter=iter+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+    lfs  </span><span class="cpp1-number">16</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">) 	# e[ l ]
+  bne </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,LABELendOFif_2	# </span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> ( iter != </span><span class="cpp1-number">30</span><span class="cpp1-symbol">){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFif_2; }
+    li </span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-space">         # syscall number (sys_write)
+    li </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">         # first argument: file descriptor (stdout)
+	           </span><span class="cpp1-preprocessor"># second argument: pointer to message to write
+</span><span class="cpp1-space">    lis </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,msg_nerror@ha
+    addi </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-symbol">,msg_nerror@l
+    li </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,len_nerror
+    sc			#printf(\nNumerical Recipes run-time error...\nToo many iterations in tqli\n...now exiting to system...\n);
+    b EXIT		#exit(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">);
+LABELendOFif_2:		#LABELendOFif_2:
+  
+  fsubs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">17</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-space">	#tFloat0 = d[ l+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ] - d[l];
+  fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">8</span><span class="cpp1-symbol">,</span><span class="cpp1-number">16</span><span class="cpp1-space">		#tFloat1 = </span><span class="cpp1-float">2.0</span><span class="cpp1-symbol">*e[l];
+  slwi </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">		#r5 = m*</span><span class="cpp1-number">4
+</span><span class="cpp1-space">  fmr </span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-space">		#s = </span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">;
+  fdivs </span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">	#g = (tFloat0)/(tFloat1); 
+  lfsx </span><span class="cpp1-number">17</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space"> 		#fr17 = d[ m ];
+  fmr </span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">6</span><span class="cpp1-space">		#p = </span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">;
+  
+</span><span class="cpp1-preprocessor">##INICIO DO PRIMEIRO PYTHAG( )
+</span><span class="cpp1-space">  fabs </span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space">		#     absa=fabs(g);
+  fmr </span><span class="cpp1-number">19</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-space">		#     absb=</span><span class="cpp1-float">1.0
+</span><span class="cpp1-space">  fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-space">	## tFloat1 = (absa*absa);
+  fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">19</span><span class="cpp1-space"> 
+  ble </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFif_3_else_1	#</span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> (absa &lt;= absb){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space">  LABELendOFif_3_else_1; }
+  fdivs </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">19</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">	##  tFloat1 = (absb/tFloat1);
+  fadds </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">  	##  tFloat1 = </span><span class="cpp1-float">1.0</span><span class="cpp1-space"> + tFloat1;
+  
+</span><span class="cpp1-preprocessor">##Inicio do sqrt1: tFloat0 = sqrt( tFloat1 );
+</span><span class="cpp1-space"> fmadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5
+</span><span class="cpp1-identifier">sqrt1_label_start_while:
+ fdivs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31
+</span><span class="cpp1-space"> fmr   </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31
+</span><span class="cpp1-space"> fadds </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fmuls </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fsubs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1
+</span><span class="cpp1-space"> fabs  </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-identifier">fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">9
+</span><span class="cpp1-identifier">bgt sqrt1_label_start_while
+</span><span class="cpp1-preprocessor">##Fim do sqrt1
+</span><span class="cpp1-space">   
+   fmul </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">           #r = absa * tFloat0;
+   b LABELendOFif_3
+  LABELendOFif_3_else_1:
+   fadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">               #tFloat0 = </span><span class="cpp1-float">1.0</span><span class="cpp1-space"> + tFloat1;
+
+</span><span class="cpp1-preprocessor">##Sqrt2: ##  r = sqrt( tFloat0  );
+</span><span class="cpp1-space"> fmadds </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5
+</span><span class="cpp1-identifier">sqrt2_label_start_while:
+ fdivs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31
+</span><span class="cpp1-space"> fmr   </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27
+</span><span class="cpp1-space"> fadds </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fmuls </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fsubs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1
+</span><span class="cpp1-space"> fabs  </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-identifier">fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">9
+</span><span class="cpp1-identifier">bgt sqrt2_label_start_while
+</span><span class="cpp1-preprocessor">## ::FIM:: Sqrt2: r = sqrt( tFloat0  ); 
+
+
+</span><span class="cpp1-space"> LABELendOFif_3:
+</span><span class="cpp1-preprocessor">##FIM DO PRIMEIRO PYTHAG( )   
+</span><span class="cpp1-space">   
+   fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">6
+</span><span class="cpp1-space">    fabs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-space">			#    tFloat0 = fabs(r); 
+   bge </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFif_7		#  </span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">( g &gt;= </span><span class="cpp1-float">0.0</span><span class="cpp1-space"> ){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFif_7; }
+    fnabs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-space">			#    tFloat0 = -fabs(r); 
+   LABELendOFif_7:		#   LABELendOFif_7:
+    
+    </span><span class="cpp1-preprocessor">#fadds 31,25,31	# tFloat0 = g + tFloat0;
+</span><span class="cpp1-space">    </span><span class="cpp1-preprocessor">#fsubs 29,17,18	# tFloat2 = d[m] - d[l];
+</span><span class="cpp1-space">    </span><span class="cpp1-preprocessor">#fdivs 31,16,31	# tFloat0 = e[l]/tFloat0;
+</span><span class="cpp1-space">    </span><span class="cpp1-preprocessor"># addi 27,30,-1	#    i=m-1 #Incremento do for4#
+</span><span class="cpp1-space">    </span><span class="cpp1-preprocessor">#fadds 25,29,31	# g = tFloat2 + tFloat0;
+</span><span class="cpp1-space">    </span><span class="cpp1-preprocessor"># g = d[m] - d[l] + e[l]/(g + tFloat0);
+</span><span class="cpp1-space">    
+    fadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">	#    tFloat0 = g + tFloat0;
+     addi </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,-</span><span class="cpp1-number">1</span><span class="cpp1-space">	#    i=m-</span><span class="cpp1-number">1</span><span class="cpp1-space"> #Incremento </span><span class="cpp1-reservedword">do</span><span class="cpp1-space"> for4#
+    fdivs </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">16</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">	#    tFloat1 = e[l]/tFloat0;
+    fsubs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-space">	#    tFloat0 = tFloat1 - d[l];
+    fadds </span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">17</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">	#    g = d[m] + tFloat0;
+    </span><span class="cpp1-preprocessor">#g = d[m] + e[l]/(g + tFloat0) - d[l];
+</span><span class="cpp1-space">    
+
+ LABELstartOFfor4:
+     slwi </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space">    cmp </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29
+</span><span class="cpp1-space">     add </span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24
+</span><span class="cpp1-space">     fabs </span><span class="cpp1-number">19</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space">  	#absb = fabs(g); 
+     lfs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">21</span><span class="cpp1-symbol">)  	#fr31 = e[i]
+    blt </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFfor4	#</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(i&lt;l){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFfor4; }
+     fmuls </span><span class="cpp1-number">24</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">  	#f=s*e[i];
+     fmuls </span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">  	#b=c*e[i];
+
+</span><span class="cpp1-preprocessor">##INICIO DO SEGUNDO PYTHAG( )    
+</span><span class="cpp1-space">    fabs </span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">  	#absa=fabs(f);
+    fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">19
+</span><span class="cpp1-space">    ble </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFif_8_else_1 #</span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> (absa &lt;= absb){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFif_8_else_1; }
+     fdivs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">19</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-space">		#tFloat0 = (absb/absa);
+     fmuls </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">		#tFloat0 = tFloat0*tFloat0;
+     fadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-space">              #tFloat0 = tFloat0 + </span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">;
+</span><span class="cpp1-preprocessor">#Sqrt3:  tFloat1 = sqrt( tFloat0 );
+</span><span class="cpp1-space"> fmadds </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5
+</span><span class="cpp1-identifier">sqrt3_label_start_while:
+ fdivs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space"> fmr   </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space"> fadds </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fsubs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1
+</span><span class="cpp1-space"> fabs  </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-identifier">fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">9
+</span><span class="cpp1-identifier">bgt sqrt3_label_start_while
+</span><span class="cpp1-preprocessor">#fim do Sqrt3:  tFloat1 = sqrt( tFloat0 );
+</span><span class="cpp1-space"> 
+   fmuls </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">	#r = absa*tFloat1;
+   b LABELendOFif_8
+ LABELendOFif_8_else_1:
+   fdivs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">19</span><span class="cpp1-space">		# tFloat0 = (absa/absb);
+   fmuls </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">		# tFloat0 = tFloat0*tFloat0;
+   fadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">7</span><span class="cpp1-space">		# tFloat0 = tFloat0 + </span><span class="cpp1-float">1.0</span><span class="cpp1-symbol">;
+
+</span><span class="cpp1-preprocessor">#sqrt4: tFloat1 = sqrt( tFloat0 );
+</span><span class="cpp1-space"> fmadds </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5
+</span><span class="cpp1-identifier">sqrt4_label_start_while:
+ fdivs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space"> fmr   </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space"> fadds </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space"> fsubs </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1
+</span><span class="cpp1-space"> fabs  </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-identifier">fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">9
+</span><span class="cpp1-identifier">bgt sqrt4_label_start_while
+</span><span class="cpp1-preprocessor">#fim do sqrt4   
+
+</span><span class="cpp1-space">   fmuls </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">19</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-space">    # r = absb*tFloat1;
+   LABELendOFif_8:
+</span><span class="cpp1-preprocessor">##FIM DO SEGUNDO PYTHAG( )
+</span><span class="cpp1-space">    slwi </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">			#r5 = i*</span><span class="cpp1-number">4
+</span><span class="cpp1-space">    stfs </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-symbol">(</span><span class="cpp1-number">21</span><span class="cpp1-symbol">)  		#e[i+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">] = r;
+    add </span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space">			#r20 = &amp;d[i]
+
+</span><span class="cpp1-preprocessor">#O r20 contem, neste ponto, o endereco d[i]
+</span><span class="cpp1-space">     lfs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">)   		#fr31 = d[ i+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ]
+     slwi </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space">    fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">6
+</span><span class="cpp1-space">     fsubs </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">26</span><span class="cpp1-space">		#fr29 = d[ i+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ] - p
+    bne </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFif_12  	#</span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> ( r != </span><span class="cpp1-float">0.0</span><span class="cpp1-space"> ) { </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFif_12; }
+     stfsx </span><span class="cpp1-number">6</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">   		#e[m]=</span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">;
+     stfs </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">)   		#d[ i+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ] = d[ i+</span><span class="cpp1-number">1</span><span class="cpp1-space"> ] - p;
+     b LABELendOFfor4
+   LABELendOFif_12:
+</span><span class="cpp1-preprocessor">#1# s = f/r;
+#2# c = g/r;
+#3# g = d[i+1]-p;
+#4# r = (d[i]-g)*s + 2.0*c*b;
+#5# p=s*r;
+#6# d[i+1] = g+p;
+#7# g = c*r-b;
+#Sendo fr29 = d[i+1]-p
+</span><span class="cpp1-space">    
+    lfs </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">)	# fr30 = d[i]
+    fdivs </span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-space"> 	# s = f/r;
+    fdivs </span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-space"> 	# c = g/r;
+    fsubs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-space">	# fr31 = (d[i]-fr29);
+    fmuls </span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">8</span><span class="cpp1-space">	# fr18 = </span><span class="cpp1-float">2.0</span><span class="cpp1-symbol">*b
+    fmuls </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-space">	# fr31 = fr31*s
+    fmuls </span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-space">	# fr18 = </span><span class="cpp1-float">2.0</span><span class="cpp1-symbol">*b*c
+    fadds </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-space">	# r = (d[i]-g)*s + </span><span class="cpp1-float">2.0</span><span class="cpp1-symbol">*c*b;
+    fmuls </span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-space">	# p=s*r;
+    fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-space">	# fr30 = c*r
+    fadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">26</span><span class="cpp1-space">	# fr31 = fr29 + p;
+    fsubs </span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">21</span><span class="cpp1-space">	# g = c*r-b;
+    stfs  </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">)	# d[i+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">] = fr31;
+    
+    
+</span><span class="cpp1-preprocessor">##:::INICIO::: for5
+</span><span class="cpp1-space">    addi </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">     	#tInt = i+</span><span class="cpp1-number">1
+</span><span class="cpp1-space">    li </span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">		#k=</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+    slwi </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space">    slwi </span><span class="cpp1-number">2</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space">  LABELstartOFfor5:
+   cmp </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">23
+</span><span class="cpp1-space">    slwi </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2
+</span><span class="cpp1-space">    lwzx </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-space"> 		#r3 = z[k] 
+    add </span><span class="cpp1-number">20</span><span class="cpp1-symbol">,</span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-space">			#&amp;z[k][tInt]
+    add </span><span class="cpp1-number">21</span><span class="cpp1-symbol">,</span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">			#&amp;z[k][i]
+   bgt </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFfor5  #</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(k&gt;n){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFfor5; }
+    lfs </span><span class="cpp1-number">24</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">) 		#f = z[k][ tInt ]
+    lfs </span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">21</span><span class="cpp1-symbol">)		#z[k][i]
+    fmuls </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-space">		#tFloat0 = s*z[k][i]
+    fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">		#tFloat1 = c*f
+    fadds </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space">    stfs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">20</span><span class="cpp1-symbol">)		#z[k][ tInt ] = tFloat0+tFloat1;
+    fmuls </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-space">        	#tFloat0 = c*z[k][i];
+    fmuls </span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">28</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">		#tFloat1 = s*f;
+    fsubs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30
+</span><span class="cpp1-space">    stfs </span><span class="cpp1-number">31</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">21</span><span class="cpp1-symbol">)			#z[k][i]= tFloat0 - tFloat1;
+    addi </span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">26</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">	   	#k=k+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+    b LABELstartOFfor5
+   LABELendOFfor5:
+</span><span class="cpp1-preprocessor">##:::FIM DO FOR5:::
+</span><span class="cpp1-space">  addi </span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,-</span><span class="cpp1-number">1</span><span class="cpp1-space">		#i = i-</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+  b LABELstartOFfor4;
+ LABELendOFfor4:
+</span><span class="cpp1-preprocessor">##:::FIM DO FOR4:::
+
+#if (r == 0.0 &amp;&amp; i &gt;= l) continue;
+# d[l] -= p;
+# e[l] = g;
+# e[m] = 0.0;
+
+</span><span class="cpp1-space">   slwi </span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">          #r5 = l*</span><span class="cpp1-number">4
+</span><span class="cpp1-space">   fcmpu </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">6</span><span class="cpp1-space"> 	      #r &lt;compara&gt; </span><span class="cpp1-float">0.0</span><span class="cpp1-illegalchar">#
+   cmp </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">27</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-space">        #i &lt;compara&gt; l#
+    slwi </span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">2</span><span class="cpp1-space">         #r1 = m*</span><span class="cpp1-number">4
+</span><span class="cpp1-space">    lfsx </span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space">        #fr18 = d[l]
+   bne </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELendOFif_13        #</span><span class="cpp1-reservedword">if</span><span class="cpp1-space"> (r != </span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">){ </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELendOFif_13;}
+    bge </span><span class="cpp1-number">4</span><span class="cpp1-symbol">,LABELstartOFdowhile	  #</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(i &gt;= l) </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELstartOFdowhile;
+   LABELendOFif_13:
+    stfsx </span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">       #e[l] = g;
+    fsubs </span><span class="cpp1-number">17</span><span class="cpp1-symbol">,</span><span class="cpp1-number">18</span><span class="cpp1-symbol">,</span><span class="cpp1-number">26</span><span class="cpp1-space">      #fr17 = d[l] - p;
+    stfsx </span><span class="cpp1-number">6</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-space">        #e[m] = </span><span class="cpp1-float">0.0</span><span class="cpp1-symbol">;
+    stfsx </span><span class="cpp1-number">17</span><span class="cpp1-symbol">,</span><span class="cpp1-number">5</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-space">       #d[l] = fr17;
+
+   LABELendOFif_1:
+    cmp </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,</span><span class="cpp1-number">0</span><span class="cpp1-symbol">,</span><span class="cpp1-number">30</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-space">		#</span><span class="cpp1-reservedword">if</span><span class="cpp1-symbol">(m != l){	  </span><span class="cpp1-reservedword">goto</span><span class="cpp1-space"> LABELstartOFdowhile;	} 
+    bne </span><span class="cpp1-number">3</span><span class="cpp1-symbol">,LABELstartOFdowhile
+    addi </span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">29</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-space">		#l = l+</span><span class="cpp1-number">1</span><span class="cpp1-symbol">;
+    b LABELstartOFfor2
+   LABELendOFfor2:
+    blr
+    
+
+_start:
+    </span><span class="cpp1-preprocessor">#Carregando os enderecos dos vetores { e, d, z }
+</span><span class="cpp1-space">  	lis 	</span><span class="cpp1-number">1</span><span class="cpp1-symbol">,labelConstant@ha
+	lis	</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,arrayz@ha
+	lis	</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,arrayd@ha
+	ori 	</span><span class="cpp1-number">1</span><span class="cpp1-symbol">,</span><span class="cpp1-number">1</span><span class="cpp1-symbol">,labelConstant@l 
+  	lis	</span><span class="cpp1-number">24</span><span class="cpp1-symbol">,arraye@ha
+	ori	</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,arrayz@l
+	lfs 	</span><span class="cpp1-number">5</span><span class="cpp1-symbol">, </span><span class="cpp1-number">0</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)
+	ori	</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,arrayd@l 
+	ori	</span><span class="cpp1-number">24</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-symbol">,arraye@l 
+	lfs 	</span><span class="cpp1-number">6</span><span class="cpp1-symbol">, </span><span class="cpp1-number">4</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)
+	addi	</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,</span><span class="cpp1-number">22</span><span class="cpp1-symbol">,-</span><span class="cpp1-number">4
+</span><span class="cpp1-space">	addi	</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,</span><span class="cpp1-number">25</span><span class="cpp1-symbol">,-</span><span class="cpp1-number">4
+</span><span class="cpp1-space">  	lfs 	</span><span class="cpp1-number">7</span><span class="cpp1-symbol">, </span><span class="cpp1-number">8</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)
+	addi	</span><span class="cpp1-number">24</span><span class="cpp1-symbol">,</span><span class="cpp1-number">24</span><span class="cpp1-symbol">,-</span><span class="cpp1-number">4
+</span><span class="cpp1-space">  	lfs 	</span><span class="cpp1-number">8</span><span class="cpp1-symbol">,</span><span class="cpp1-number">12</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)
+	li 	</span><span class="cpp1-number">23</span><span class="cpp1-symbol">,</span><span class="cpp1-number">4
+</span><span class="cpp1-space">  	lfs 	</span><span class="cpp1-number">9</span><span class="cpp1-symbol">,</span><span class="cpp1-number">16</span><span class="cpp1-symbol">(</span><span class="cpp1-number">1</span><span class="cpp1-symbol">)
+	
+      </span><span class="cpp1-preprocessor">#Chamada a tqli		
+</span><span class="cpp1-space">	bl tqli
+
+     </span><span class="cpp1-preprocessor">#Fechando o programa
+</span><span class="cpp1-space">     EXIT:
+	li	</span><span class="cpp1-number">0</span><span class="cpp1-symbol">, </span><span class="cpp1-number">1
+</span><span class="cpp1-space">	li	</span><span class="cpp1-number">3</span><span class="cpp1-symbol">, </span><span class="cpp1-number">1
+</span><span class="cpp1-space">	sc
+
+</span></span>
+</code></pre>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Modificando o pythag( )</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page2.2.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.4.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+Aluno: Tyago Medeiros <br>
+      </h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<hr align="center" width="526">
+<p><span style="font-family: monospace;"><br>
+  <br>
+  </span><span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big><big><big>Terceira avalia&ccedil;&atilde;o 
+  de Software B&aacute;sico<br>
+  <small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado na segunda 
+  avalia&ccedil;&atilde;o.</small></small><br>
+  </big></big></big></span><span style="font-weight: bold;"></span><br>
+  <span style="font-weight: bold;">[</span><span
+ style="font-weight: bold;">Modificando o pythag( )] </span><small>- [<a href="otimo3.html">otimo3.html</a>]</small></p>
+<p><small>Explorando a implementa&ccedil;&atilde;o, reparei que uma das chamadas 
+  &agrave; fun&ccedil;&atilde;o pythag( ) que acabei por <br>
+  implementar inline nas primeiras modifica&ccedil;&otilde;es tinha como entrada 
+  um valor constante (1.0); <br>
+  </small> </p>
+<div style="margin-left: 80px;"><small>/*Substituicao do pythag: </small><small>r=pythag(g,1.0);
+</small><small>*/</small><br>
+</div>
+<div style="margin-left: 120px;"><small>absa=fabs(g);</small><br>
+<small>absb=fabs(1.0);</small><br>
+<small>if (absa &gt; absb) </small><br>
+<small>&nbsp;r = absa*sqrt(1.0+((absb/absa)== 0.0 ? 0.0 :
+(absb/absa)*(absb/absa)));</small><br>
+<small>else </small><br>
+<small>&nbsp;r = (absb == 0.0 ? 0.0 : absb*sqrt(1.0+(
+(absa/absb)==0.0?0.0:(absa/absb)*(absa/absb))));</small><br>
+</div>
+<div style="margin-left: 80px;"><small>/*Fim: Substituicao do pythag*/</small><span
+ style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;"></span><br>
+</div>
+<div style="margin-left: 40px;"><small>&nbsp;&nbsp; Resolvi,
+ent&atilde;o, simplificar esta chamada para;</small><br>
+</div>
+<div style="margin-left: 80px;"><small>/*Substituicao do pythag:</small><small>
+r=pythag(g,1.0); </small><small>*/<br>
+</small>
+<div style="margin-left: 40px;"><small>absa=fabs(g);</small><br>
+<small>absb=1.0;</small><br>
+<small>tFloat1 = (absa*absa);</small><br>
+<small>if (absa &gt; absb) {</small><br>
+<small>&nbsp;&nbsp;&nbsp; tFloat1 = (absb/tFloat1);</small><br>
+<small>&nbsp;&nbsp;&nbsp; tFloat1 = 1.0 + tFloat1;</small><br>
+<small>&nbsp;&nbsp;&nbsp; r = absa*sqrt( tFloat1 );</small><br>
+<small>}</small><br>
+<small>else {</small><br>
+<small>&nbsp;&nbsp;&nbsp; tFloat0 = 1.0 + tFloat1;</small><br>
+<small>&nbsp;&nbsp;&nbsp; r = sqrt( tFloat0&nbsp; );</small><br>
+<small>}</small><br>
+</div>
+</div>
+<div style="margin-left: 80px;"><small>/*Fim: Substituicao do pythag*/</small><br>
+</div>
+<div style="margin-left: 40px;"><br>
+<small>+ Observando atrav&eacute;s do ppcemul, obtive resultado
+positivo:</small><br>
+</div>
+<div style="margin-left: 80px;"><small>[D] 00 00 00 00; 3e c7 72 4e; c0
+16 ec 88; 40 6b 38 61; 41 04 b1 77;</small><br>
+<br>
+<small>[E] 00 00 00 00; 29 80 00 00; 00 00 00 00; 31 00 00 00; 00 00 00
+00;</small><br>
+<br>
+<small>[Z]</small><br>
+<small>&nbsp;3f 80 00 00; 00 00 00 00; 00 00 00 00; 00 00 00 00; 00 00
+00 00;</small><br>
+<small>&nbsp;00 00 00 00; bf 46 ea 79; 3e b2 be 3f; 3f 03 c1 49; 3d c7
+7d ce;</small><br>
+<small>&nbsp;00 00 00 00; 3e 72 db dc; bf 16 10 2c; 3f 30 3e 3d; 3e b5
+de 97;</small><br>
+<small>&nbsp;00 00 00 00; 3e c8 09 1b; 3f 1e 6b 89; 3d 29 59 6c; 3f 2e
+22 ef;</small><br>
+<small>&nbsp;00 00 00 00; be dd 9e 3a; be c7 53 d3; bf 02 65 3a; 3f 22
+3d 3a;</small><br>
+</div>
+<div style="margin-left: 40px;"><small><br>
++ Executando o psim3 e comparando com a vers&atilde;o anterior,
+evidencio:</small><br>
+</div>
+<div style="margin-left: 80px;"><small>&lt; CPU #1 executed <span
+ style="color: rgb(51, 51, 255);">41,101</span> cycles.<br>
+&lt; CPU #1 executed 32,927 stalls waiting for data.<br>
+---<br>
+&gt; CPU #1 executed <span style="color: rgb(255, 0, 0);">40,953</span>
+cycles.<br>
+&gt; CPU #1 executed 32,811 stalls waiting for data.<br>
+</small></div>
+<div style="margin-left: 40px;">&nbsp;<br>
+</div>
+<small>Resolvi, ent&atilde;o, seguir a mesma id&eacute;ia e modificar
+ao m&aacute;ximo a segunda chamada &agrave; fun&ccedil;&atilde;o
+pythag( ); <br>
+</small>
+<div style="margin-left: 40px;"><small>+ Continuei a obter resultado
+positivo:</small></div>
+<div style="margin-left: 80px;"><small>[D] 00 00 00 00; 3e c7 72 4e; c0
+16 ec 88; 40 6b 38 61; 41 04 b1 77;</small><br>
+<br>
+<small>[E] 00 00 00 00; 29 80 00 00; 00 00 00 00; 31 00 00 00; 00 00 00
+00</small><br>
+<br>
+<small>[Z]</small><br>
+<small>&nbsp;3f 80 00 00; 00 00 00 00; 00 00 00 00; 00 00 00 00; 00 00
+00 00;</small><br>
+<small>&nbsp;00 00 00 00; bf 46 ea 79; 3e b2 be 3f; 3f 03 c1 49; 3d c7
+7d ce;</small><br>
+<small>&nbsp;00 00 00 00; 3e 72 db dc; bf 16 10 2c; 3f 30 3e 3d; 3e b5
+de 97;</small><br>
+<small>&nbsp;00 00 00 00; 3e c8 09 1b; 3f 1e 6b 89; 3d 29 59 6c; 3f 2e
+22 ef;</small><br>
+<small>&nbsp;00 00 00 00; be dd 9e 3a; be c7 53 d3; bf 02 65 3a; 3f 22
+3d 3a;<br>
+</small></div>
+<div style="margin-left: 40px;"><br>
+<small>+ Executei o psim3 e comparei tamb&eacute;m com a vers&atilde;o
+anterior, resultando:</small><br>
+<div style="margin-left: 40px; color: rgb(102, 102, 102);"><small>5c5</small><br>
+<small>&lt; CPU #1 executed&nbsp; 1,731 Branch Conditional instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp; 1,684 Branch Conditional instructions.</small><br>
+<small>9c9</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 129 Floating Absolute
+Value instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 121 Floating Absolute
+Value instructions.</small><br>
+<small>11,13c11,13</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 134 Floating Compare
+Unordered instructions.</small><br>
+<small>&lt; CPU #1 executed&nbsp; 1,456 Floating Divide Single
+instructions.</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 44 Floating Move
+Register instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 87 Floating Compare
+Unordered instructions.</small><br>
+<small>&gt; CPU #1 executed&nbsp; 1,452 Floating Divide Single
+instructions.</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 52 Floating Move
+Register instructions.</small><br>
+<small>15c15</small><br>
+<small>&lt; CPU #1 executed&nbsp; 1,892 Floating Multiply Single
+instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp; 1,888 Floating Multiply Single
+instructions.</small><br>
+<small>17c17</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 263 Floating Subtract
+Single instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 216 Floating Subtract
+Single instructions.</small><br>
+<small>29,30c29,30</small><br>
+<small>&lt; CPU #1 executed <span style="color: rgb(51, 51, 255);">41,101</span>
+cycles.</small><br>
+<small>&lt; CPU #1 executed 32,927 stalls waiting for data.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed <span style="color: rgb(255, 0, 0);">40,813</span>
+cycles.</small><br>
+<small>&gt; CPU #1 executed 32,741 stalls waiting for data.</small><br>
+<small>34c34</small><br>
+<small>&lt; CPU #1 executed&nbsp; 1,698 conditional branches fell
+through.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp; 1,651 conditional branches fell
+through.</small><br>
+<small>36,37c36,37</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 187 unsuccessful branch
+predictions.</small><br>
+<small>&lt; CPU #1 executed&nbsp; 1,523 branch if the condition is
+FALSE conditional branches.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 140 unsuccessful branch
+predictions.</small><br>
+<small>&gt; CPU #1 executed&nbsp; 1,476 branch if the condition is
+FALSE conditional branches.</small><br>
+<small>43c43</small><br>
+<small>&lt; CPU #1 executed&nbsp; 5,508 floating point functional unit
+instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp; 5,406 floating point functional unit
+instructions.</small><br>
+<small>45,46c45,46</small><br>
+<small>&lt; CPU #1 executed&nbsp; 3,242 branch functional unit
+instructions.</small><br>
+<small>&lt; CPU #1 executed 13,573 instructions that were accounted for
+in timing info.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp; 3,195 branch functional unit
+instructions.</small><br>
+<small>&gt; CPU #1 executed 13,424 instructions that were accounted for
+in timing info.</small><br>
+<small>51,52c51,52</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 250 icache misses.</small><br>
+<small>&lt; CPU #1 executed 13,575 instructions in total.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 229 icache misses.</small><br>
+<small>&gt; CPU #1 executed 13,426 instructions in total.</small><br>
+<small>54c54</small><br>
+<small>&lt; Simulator speed was 4,526,509 instructions/second.</small><br>
+<small>---</small><br>
+<small>&gt; Simulator speed was 3,357,339 instructions/second.</small><br>
+</div>
+<br style="color: rgb(102, 102, 102);">
+<br>
+</div>
+<span style="font-family: monospace;"><big>Como resultado temos o
+c&oacute;digo [<a href="otimo3.html">otimo3.html</a>].<br>
+</big></span>
+<div style="margin-left: 40px;"></div>
+<span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big><big><big><small><small> </small></small></big></big></big></span><span
+ style="font-family: monospace;"></span>
+</body>
+</html>

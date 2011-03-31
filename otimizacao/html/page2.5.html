@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Deslocando / N&atilde;o-multiplicando</title>
+</head>
+<body>
+<table style="text-align: left; width: 131px; height: 31px;" border="1"
+ cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      
+    <td style="vertical-align: top;"><a href="page2.4.html">&lt;</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a
+ href="../index.html">Indice</a><br>
+      </td>
+      
+    <td style="vertical-align: top; text-align: right;"><a
+ href="page2.6.html">&gt;</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table align="center" border="2">
+  <tbody>
+    <tr align="center">
+      <td>
+      <h4> &nbsp;UFRN - DIMAP - Engenharia de Computa&ccedil;&atilde;o <br>
+Software Basico - Prof. Ivan Jeukens <br>
+        Aluno: Tyago Medeiros</h4>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<hr align="center" width="526"><span style="font-family: monospace;"></span><span
+ style="font-family: monospace;"><big><big><big><br>
+Terceira
+avalia&ccedil;&atilde;o de Software B&aacute;sico<br>
+<small><small>Otimiza&ccedil;&atilde;o do c&oacute;digo assembly gerado
+na segunda avalia&ccedil;&atilde;o.</small></small><br>
+</big></big></big></span><span style="font-weight: bold;"></span><br>
+<span style="font-weight: bold;">[Deslocando / N&atilde;o-multiplicando</span><span
+ style="font-weight: bold;">]</span> - [<a href="otimo5.html">otimo5.html</a>]<br>
+<br>
+Substituindo o uso de mulli por slwi;<br>
+Aproveitei e realizei a substitui&ccedil;&atilde;o de lfs por lfsx nos
+casos em que seria poss&iacute;vel;<br>
+<br>
+<div style="margin-left: 40px;">+ Sa&iacute;da:<br>
+<span style="font-family: monospace;"></span></div>
+<div style="margin-left: 80px;"><small>[D] 00 00 00 00; 3e c7 72 4e; c0
+16 ec 88; 40 6b 38 61; 41 04 b1 77;</small><br>
+<br>
+<small>[E] 00 00 00 00; 29 80 00 00; 00 00 00 00; 31 00 00 00; 00 00 00
+00;</small><br>
+<br>
+<small>[Z]</small><br>
+<small>&nbsp;3f 80 00 00; 00 00 00 00; 00 00 00 00; 00 00 00 00; 00 00
+00 00;</small><br>
+<small>&nbsp;00 00 00 00; bf 46 ea 79;&nbsp; 3e b2 be 3f;&nbsp; 3f 03
+c1 49;&nbsp; 3d c7 7d ce;</small><br>
+<small>&nbsp;00 00 00 00; 3e 72 db dc; bf 16 10 2c; 3f 30 3e 3d; 3e b5
+de 97;</small><br>
+<small>&nbsp;00 00 00 00; 3e c8 09 1b; 3f 1e 6b 89; 3d 29 59 6c; 3f 2e
+22 ef;</small><br>
+<small>&nbsp;00 00 00 00; be dd 9e 3a; be c7 53 d3; bf 02 65 3a; 3f 22
+3d 3a<br>
+<br>
+</small></div>
+<div style="margin-left: 40px;"><br>
+<small><big>+ Estado:</big></small><br>
+</div>
+<div style="margin-left: 80px;"><small>1c1</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 48 Add instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 24 Add instructions.</small><br>
+<small>18,19c18,19</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 36 Load
+Floating-Point Single instructions.</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 393 Load Floating-Point
+Single Indexed instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 12 Load
+Floating-Point Single instructions.</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 417 Load Floating-Point
+Single Indexed instructions.</small><br>
+<small>21d20</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 641 Multiply Low
+Immediate instructions.</small><br>
+<small>23a23</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 641 Rotate Left Word
+Immediate then AND with Mask instructions.</small><br>
+<small>29,30c29,30</small><br>
+<small>&lt; CPU #1 executed <span style="color: rgb(51, 51, 255);">40,689</span>
+cycles.</small><br>
+<small>&lt; CPU #1 executed 32,657 stalls waiting for data.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed <span style="color: rgb(255, 0, 0);">39,588</span>
+cycles.</small><br>
+<small>&gt; CPU #1 executed 31,580 stalls waiting for data.</small><br>
+<small>32c32</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 167 times a write-back
+slot was unavailable.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 33 times a
+write-back slot was unavailable.</small><br>
+<small>40,42c40,41</small><br>
+<small>&lt; CPU #1 executed&nbsp; 3,423 1st single cycle integer
+functional unit instructions.</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp;&nbsp; 24 2nd single cycle
+integer functional unit instructions.</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 641 multiple cycle
+integer functional unit instructions.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp; 3,960 1st single cycle integer
+functional unit instructions.</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 104 2nd single cycle
+integer functional unit instructions.</small><br>
+<small>46c45</small><br>
+<small>&lt; CPU #1 executed 13,380 instructions that were accounted for
+in timing info.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed 13,356 instructions that were accounted for
+in timing info.</small><br>
+<small>51,52c50,51</small><br>
+<small>&lt; CPU #1 executed&nbsp;&nbsp;&nbsp; 226 icache misses.</small><br>
+<small>&lt; CPU #1 executed 13,383 instructions in total.</small><br>
+<small>---</small><br>
+<small>&gt; CPU #1 executed&nbsp;&nbsp;&nbsp; 223 icache misses.</small><br>
+<small>&gt; CPU #1 executed 13,359 instructions in total.</small><br>
+<small>54c53</small><br>
+<small>&lt; Simulator speed was 4,462,487 instructions/second.</small><br>
+<small>---</small><br>
+<small>&gt; Simulator speed was 4,454,485 instructions/second.</small><br>
+</div>
+<br>
+</body>
+</html>

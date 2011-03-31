@@ -1,0 +1,54 @@
+CPU #1 executed     48 Add instructions.
+CPU #1 executed  1,771 Add Immediate instructions.
+CPU #1 executed      9 Add Immediate Shifted instructions.
+CPU #1 executed  1,510 Branch instructions.
+CPU #1 executed  1,731 Branch Conditional instructions.
+CPU #1 executed      1 Branch Conditional to Link Register instruction.
+CPU #1 executed    189 Compare instructions.
+CPU #1 executed  1,408 Compare Immediate instructions.
+CPU #1 executed    129 Floating Absolute Value instructions.
+CPU #1 executed  1,582 Floating Add Single instructions.
+CPU #1 executed    134 Floating Compare Unordered instructions.
+CPU #1 executed  1,456 Floating Divide Single instructions.
+CPU #1 executed     44 Floating Move Register instructions.
+CPU #1 executed      4 Floating Multiply instructions.
+CPU #1 executed  1,892 Floating Multiply Single instructions.
+CPU #1 executed      4 Floating Negative Absolute Value instructions.
+CPU #1 executed    263 Floating Subtract Single instructions.
+CPU #1 executed     35 Load Floating-Point Single instructions.
+CPU #1 executed    393 Load Floating-Point Single Indexed instructions.
+CPU #1 executed     80 Load Word and Zero Indexed instructions.
+CPU #1 executed    641 Multiply Low Immediate instructions.
+CPU #1 executed     12 OR instructions.
+CPU #1 executed      9 OR Immediate instructions.
+CPU #1 executed     24 Store Floating-Point Single instructions.
+CPU #1 executed    200 Store Floating-Point Single Indexed instructions.
+CPU #1 executed      5 Store Word instructions.
+CPU #1 executed      1 System Call instruction.
+
+CPU #1 executed 41,101 cycles.
+CPU #1 executed 32,927 stalls waiting for data.
+CPU #1 executed      1 stall waiting for serialization.
+CPU #1 executed    175 times a write-back slot was unavailable.
+CPU #1 executed  1,544 branches.
+CPU #1 executed  1,698 conditional branches fell through.
+CPU #1 executed  1,544 successful branch predictions.
+CPU #1 executed    187 unsuccessful branch predictions.
+CPU #1 executed  1,523 branch if the condition is FALSE conditional branches.
+CPU #1 executed    208 branch if the condition is TRUE conditional branches.
+CPU #1 executed      1 branch always conditional branch.
+CPU #1 executed  3,423 1st single cycle integer functional unit instructions.
+CPU #1 executed     24 2nd single cycle integer functional unit instructions.
+CPU #1 executed    641 multiple cycle integer functional unit instructions.
+CPU #1 executed  5,508 floating point functional unit instructions.
+CPU #1 executed    735 load/store functional unit instructions.
+CPU #1 executed  3,242 branch functional unit instructions.
+CPU #1 executed 13,573 instructions that were accounted for in timing info.
+CPU #1 executed    508 reads  (0 1-byte, 0 2-byte, 508 4-byte, 0 8-byte).
+CPU #1 executed    229 writes (0 1-byte, 0 2-byte, 229 4-byte, 0 8-byte).
+CPU #1 executed    508 unaligned reads.
+CPU #1 executed    229 unaligned writes.
+CPU #1 executed    250 icache misses.
+CPU #1 executed 13,575 instructions in total.
+
+Simulator speed was 3,394,599 instructions/second.
